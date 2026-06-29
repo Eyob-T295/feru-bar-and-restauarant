@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --brand-orange: #C14F26;
+  --coffee-deep: #1A100B;
+  --gold-accent: #B28F4D;
+  --warm-bronze: #8F7255;
+  --cream-gold: #E5CDAA;
+  
+  --dark-bronze: #5C4127;
+  --burnt-orange: #AB421B;
+  --olive-accent: #5C5832;
+  --vibrant-red: #B02A1E;
+  --body-text: #2C2621;
+  --main-bg: #FAF9F6;
+  
+  --gold-50: #FAF9F6;
+  --gold-100: #EFECE6;
+  --gold-200: #E2DBD0;
+  --gold-300: #CBAE8B;
+  --gold-400: #B28F4D;
+  --gold-500: #8F7255;
+  --gold-600: #70563C;
+  --gold-700: #523821;
+  --gold-800: #332012;
+  --gold-900: #1A100B;
+  --gold-950: #FAF9F6;
+  
+  --onyx-50: #FAF9F6;
+  --onyx-100: #1E1815;
+  --onyx-200: #2E2622;
+  --onyx-300: #50453E;
+  --onyx-400: #8C7C72;
+  --onyx-500: #BCAFA3;
+  --onyx-600: #DDD5C9;
+  --onyx-700: #EAE3D8;
+  --onyx-800: #EFECE6;
+  --onyx-900: #FAF7F2;
+  --onyx-950: #FAF9F6;
+}
+
+.dark {
+  --brand-orange: #E0622F; /* Brand Orange */
+  --coffee-deep: #392211;  /* Deep Coffee Brown */
+  --gold-accent: #EFB238;  /* Luxury Gold */
+  --warm-bronze: #8F7255;
+  --cream-gold: #F2CF88;   /* Cream Gold */
+  
+  --dark-bronze: #EFB238;
+  --burnt-orange: #E0622F;
+  --olive-accent: #F2CF88;
+  --vibrant-red: #EFB238;
+  --body-text: #FAF9F6;
+  --main-bg: #050505;      /* Dark Background */
+  
+  --gold-50: #120B07;      /* Warm dark charcoal base */
+  --gold-100: #22150E;
+  --gold-200: #392211;     /* Deep Coffee Brown Border */
+  --gold-300: #5E3D23;
+  --gold-400: #EFB238;     /* Luxury Gold */
+  --gold-500: #F2CF88;     /* Cream Gold */
+  --gold-600: #E5CDAA;
+  --gold-700: #FAF9F6;
+  --gold-800: #FFFFFF;
+  --gold-900: #FFFFFF;
+  --gold-950: #050505;     /* Dark Background */
+  
+  --onyx-50: #0D0806;
+  --onyx-100: #FAF9F6;     /* Clean off-white text */
+  --onyx-200: #F2CF88;     /* Cream gold text */
+  --onyx-300: #E5CDAA;     /* Light cream details */
+  --onyx-400: #A89582;
+  --onyx-500: #392211;     /* Deep Coffee Brown Borders */
+  --onyx-600: #2A190C;
+  --onyx-700: #120C08;     /* Luxurious deep brown card background */
+  --onyx-800: #0A0604;     /* Cozier darker background */
+  --onyx-900: #050505;     /* Pitch dark background mapping */
+  --onyx-950: #050505;     /* Full dark background */
+}
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  
+  --color-brand-orange: var(--brand-orange);
+  --color-coffee-deep: var(--coffee-deep);
+  --color-gold-accent: var(--gold-accent);
+  --color-warm-bronze: var(--warm-bronze);
+  --color-cream-gold: var(--cream-gold);
+  
+  --color-dark-bronze: var(--dark-bronze);
+  --color-burnt-orange: var(--burnt-orange);
+  --color-olive-accent: var(--olive-accent);
+  --color-vibrant-red: var(--vibrant-red);
+  --color-body-text: var(--body-text);
+  --color-main-bg: var(--main-bg);
+  
+  --color-gold-50: var(--gold-50);
+  --color-gold-100: var(--gold-100);
+  --color-gold-200: var(--gold-200);
+  --color-gold-300: var(--gold-300);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-gold-700: var(--gold-700);
+  --color-gold-800: var(--gold-800);
+  --color-gold-900: var(--gold-900);
+  --color-gold-950: var(--gold-950);
+  
+  --color-onyx-50: var(--onyx-50);
+  --color-onyx-100: var(--onyx-100);
+  --color-onyx-200: var(--onyx-200);
+  --color-onyx-300: var(--onyx-300);
+  --color-onyx-400: var(--onyx-400);
+  --color-onyx-500: var(--onyx-500);
+  --color-onyx-600: var(--onyx-600);
+  --color-onyx-700: var(--onyx-700);
+  --color-onyx-800: var(--onyx-800);
+  --color-onyx-900: var(--onyx-900);
+  --color-onyx-950: var(--onyx-950);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-onyx-950);
+    color: var(--color-onyx-100);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--color-onyx-100);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-onyx-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-onyx-600);
+  border: 2px solid var(--color-onyx-950);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-400);
+}
+
+/* Shimmer overlay for ultra premium elements */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(178, 143, 77, 0.05) 0%,
+    rgba(178, 143, 77, 0.12) 50%,
+    rgba(178, 143, 77, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Luxury Brand Gradient */
+.bg-luxury-gradient {
+  background: linear-gradient(
+    135deg,
+    #FCFAF6 0%,
+    #F5ECE0 42%,
+    #EADCC6 100%
+  );
+}
+
+/* Elegant Boutique Box Shadows (No heavy low-end glowing slop) */
+.shadow-gold-glow {
+  box-shadow:
+    0 10px 30px rgba(178, 143, 77, 0.12),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Warm Coffee glow */
+.shadow-coffee-glow {
+  box-shadow:
+    0 15px 35px rgba(44, 26, 15, 0.06),
+    0 5px 15px rgba(44, 26, 15, 0.03);
+}
+
+/* Custom Dark-Mode helper targeters to translate hardcoded light colors */
+.dark .bg-white {
+  background-color: var(--onyx-700) !important;
+}
+.dark .bg-luxury-gradient {
+  background: linear-gradient(
+    135deg,
+    #120C08 0%,
+    #1C120B 42%,
+    #2B1A10 100%
+  ) !important;
+}
+.dark .text-onyx-100 {
+  color: var(--onyx-100) !important;
+}
+.dark .text-onyx-200 {
+  color: var(--onyx-200) !important;
+}
+.dark .text-onyx-300 {
+  color: var(--onyx-300) !important;
+}
+.dark .border-gold-100 {
+  border-color: var(--gold-100) !important;
+}
+.dark .border-gold-200 {
+  border-color: var(--gold-200) !important;
+}
+.dark .bg-gold-50 {
+  background-color: var(--onyx-800) !important;
+}
+.dark .bg-gold-50\/55 {
+  background-color: rgba(18, 12, 8, 0.55) !important;
+}
+.dark .bg-gold-50\/80 {
+  background-color: rgba(18, 12, 8, 0.8) !important;
+}
+.dark .shadow-gold-glow {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(239, 178, 56, 0.05) !important;
+}
+.dark .text-[#1A100B] {
+  color: var(--onyx-100) !important;
+}
+.dark .text-[#523821] {
+  color: var(--onyx-200) !important;
+}
+.dark .text-[#70563C] {
+  color: var(--onyx-300) !important;
+}
+.dark .bg-[#FAF9F6] {
+  background-color: var(--onyx-950) !important;
+}
+.dark .border-[#E2DBD0] {
+  border-color: var(--gold-200) !important;
+}
+.dark .bg-[#FAF7F2] {
+  background-color: var(--onyx-800) !important;
+}
+

@@ -1,0 +1,6 @@
+{
+  "name": "Feru Bar & Restaurant",
+  "description": "Premium Ethiopian luxury dining and traditional coffee ceremony experience in Alexandria, VA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
