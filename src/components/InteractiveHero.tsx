@@ -46,7 +46,7 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
   const videoRef = useRef<HTMLVideoElement>(null);
   const { scrollY } = useScroll();
   const contentFade = useTransform(scrollY, [0, 380], [1, 0]);
-  const bgParallax  = useTransform(scrollY, [0, 600], ["0%", "18%"]);
+  const bgParallax = useTransform(scrollY, [0, 600], ["0%", "18%"]);
 
   // Auto-cycle background every 5s
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
   const handleBtnMove = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     const r = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - (r.left + r.width / 2)) * 0.28;
-    const y = (e.clientY - (r.top  + r.height / 2)) * 0.28;
+    const y = (e.clientY - (r.top + r.height / 2)) * 0.28;
     id === "reserve" ? setActiveBtnOffset({ x, y }) : setMenuBtnOffset({ x, y });
   };
   const handleBtnLeave = (id: string) =>
@@ -119,7 +119,7 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
             src={BG_IMAGES[bgIndex]}
             alt="Feru ambiance"
             initial={{ opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 1,  scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1.02 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.4, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full object-cover object-center"
@@ -178,9 +178,8 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
           <button
             key={i}
             onClick={() => setBgIndex(i)}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              i === bgIndex ? "w-5 h-1.5 bg-brand-orange" : "w-1.5 h-1.5 bg-white/30 hover:bg-white/60"
-            }`}
+            className={`transition-all duration-300 rounded-full cursor-pointer ${i === bgIndex ? "w-5 h-1.5 bg-brand-orange" : "w-1.5 h-1.5 bg-white/30 hover:bg-white/60"
+              }`}
           />
         ))}
       </div>
@@ -201,7 +200,7 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
             transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-2 bg-brand-orange/15 border border-brand-orange/30 backdrop-blur-sm px-4 py-1.5 rounded-full"
           >
-            <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
+            {/* <Sparkles className="w-3.5 h-3.5 text-brand-orange" /> */}
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">
               Alexandria, Virginia
             </span>
@@ -302,42 +301,40 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
           onMouseLeave={() => setHoveredMosaic(null)}
         >
           {/* Panel 0: The Intro Video */}
-          <motion.div 
+          <motion.div
             layout
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
-            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
-              (hoveredMosaic === null || hoveredMosaic === 0) ? "flex-[5]" : "flex-[1]"
-            }`}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${(hoveredMosaic === null || hoveredMosaic === 0) ? "flex-[5]" : "flex-[1]"
+              }`}
             onMouseEnter={() => setHoveredMosaic(0)}
           >
             <div className="absolute inset-0 z-0">
-               {!videoError ? (
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    onError={() => setVideoError(true)}
-                    className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700"
-                  >
-                    <source src={logoIntroVideo} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img src={imgBar} alt="The Bar fallback" className="w-full h-full object-cover" />
-                )}
+              {!videoError ? (
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  onError={() => setVideoError(true)}
+                  className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700"
+                >
+                  <source src={logoIntroVideo} type="video/mp4" />
+                </video>
+              ) : (
+                <img src={imgBar} alt="The Bar fallback" className="w-full h-full object-cover" />
+              )}
             </div>
             {/* Gradient Overlay */}
-            <div className={`absolute inset-0 transition-opacity duration-300 ${
-              (hoveredMosaic === null || hoveredMosaic === 0) 
-              ? "bg-gradient-to-t from-black/80 via-black/10 to-transparent" 
-              : "bg-black/50"
-            }`} />
+            <div className={`absolute inset-0 transition-opacity duration-300 ${(hoveredMosaic === null || hoveredMosaic === 0)
+                ? "bg-gradient-to-t from-black/80 via-black/10 to-transparent"
+                : "bg-black/50"
+              }`} />
 
             {/* Video Controls / Badges */}
             <AnimatePresence>
               {(hoveredMosaic === null || hoveredMosaic === 0) ? (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
                   className="absolute inset-0 z-20 pointer-events-none"
                 >
@@ -361,94 +358,91 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
                   </div>
                 </motion.div>
               ) : (
-                 <motion.div 
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0"
-                 >
-                    <span className="text-white text-[9px] sm:text-xs font-black uppercase tracking-widest whitespace-nowrap rotate-90 sm:-rotate-90">Vibe Intro</span>
-                 </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0"
+                >
+                  <span className="text-white text-[9px] sm:text-xs font-black uppercase tracking-widest whitespace-nowrap rotate-90 sm:-rotate-90">Vibe Intro</span>
+                </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
 
           {/* Panel 1: Al Fresco Outside */}
-          <motion.div 
+          <motion.div
             layout
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
-            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
-              hoveredMosaic === 1 ? "flex-[5]" : "flex-[1]"
-            }`}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${hoveredMosaic === 1 ? "flex-[5]" : "flex-[1]"
+              }`}
             onMouseEnter={() => setHoveredMosaic(1)}
           >
             <img src={imgOutside} alt="Outside" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div className={`absolute inset-0 transition-opacity duration-300 ${hoveredMosaic === 1 ? "bg-gradient-to-t from-black/80 via-transparent to-black/20" : "bg-black/60"}`} />
-            
+
             <AnimatePresence>
               {hoveredMosaic === 1 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-20 p-5 flex flex-col justify-end">
-                   <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Al Fresco</h3>
-                   <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Elegant outdoor seating for breezy evenings and sunny weekend brunches.</p>
+                  <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Al Fresco</h3>
+                  <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Elegant outdoor seating for breezy evenings and sunny weekend brunches.</p>
                 </motion.div>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0">
-                   <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Patio</span>
+                  <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Patio</span>
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
 
           {/* Panel 2: Inside Dining */}
-          <motion.div 
+          <motion.div
             layout
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
-            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
-              hoveredMosaic === 2 ? "flex-[5]" : "flex-[1]"
-            }`}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${hoveredMosaic === 2 ? "flex-[5]" : "flex-[1]"
+              }`}
             onMouseEnter={() => setHoveredMosaic(2)}
           >
             <img src={imgInside1} alt="Inside Dining" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div className={`absolute inset-0 transition-opacity duration-300 ${hoveredMosaic === 2 ? "bg-gradient-to-t from-black/80 via-transparent to-black/20" : "bg-black/60"}`} />
-            
+
             <AnimatePresence>
               {hoveredMosaic === 2 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-20 p-5 flex flex-col justify-end">
-                   <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Intimate Interior</h3>
-                   <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Warm lighting and rich wooden accents set the stage for romance and celebration.</p>
+                  <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Intimate Interior</h3>
+                  <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Warm lighting and rich wooden accents set the stage for romance and celebration.</p>
                 </motion.div>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0">
-                   <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Dining Room</span>
+                  <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Dining Room</span>
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
 
           {/* Panel 3: Private Tables */}
-          <motion.div 
+          <motion.div
             layout
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
-            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
-              hoveredMosaic === 3 ? "flex-[5]" : "flex-[1]"
-            }`}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${hoveredMosaic === 3 ? "flex-[5]" : "flex-[1]"
+              }`}
             onMouseEnter={() => setHoveredMosaic(3)}
           >
             <img src={imgTables} alt="Private Tables" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div className={`absolute inset-0 transition-opacity duration-300 ${hoveredMosaic === 3 ? "bg-gradient-to-t from-black/80 via-transparent to-black/20" : "bg-black/60"}`} />
-            
+
             <AnimatePresence>
               {hoveredMosaic === 3 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-20 p-5 flex flex-col justify-between">
-                   <div className="flex justify-end">
-                      <button onClick={() => { setActiveTab("about"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="flex items-center gap-1 bg-brand-orange/90 hover:bg-brand-orange text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full transition-all cursor-pointer border border-white/10 shadow-lg">Our Story <ChevronRight className="w-3 h-3" /></button>
-                   </div>
-                   <div>
-                     <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Communal Dining</h3>
-                     <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Gather around large traditional platters representing unity, family, and sharing.</p>
-                   </div>
+                  <div className="flex justify-end">
+                    <button onClick={() => { setActiveTab("about"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="flex items-center gap-1 bg-brand-orange/90 hover:bg-brand-orange text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full transition-all cursor-pointer border border-white/10 shadow-lg">Our Story <ChevronRight className="w-3 h-3" /></button>
+                  </div>
+                  <div>
+                    <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Communal Dining</h3>
+                    <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Gather around large traditional platters representing unity, family, and sharing.</p>
+                  </div>
                 </motion.div>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0">
-                   <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Events &amp; Tables</span>
+                  <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Events &amp; Tables</span>
                 </motion.div>
               )}
             </AnimatePresence>
