@@ -10,6 +10,7 @@ import CoffeeCeremonyExperience from "./CoffeeCeremonyExperience";
 import ThreeDPlate from "./ThreeDPlate";
 import PressFeatures from "./PressFeatures";
 import InteractiveHero from "./InteractiveHero";
+import OwnersHomeSection from "./OwnersHomeSection";
 
 interface HomeSectionProps {
   setActiveTab: (tab: string) => void;
@@ -47,7 +48,10 @@ export default function HomeSection(props: HomeSectionProps) {
         </div>
       </div>
 
-      {/* SECTION 2 – CHEF'S SPECIALS SHOWCASE */}
+      {/* SECTION 2 – ABOUT THE OWNERS */}
+      <OwnersHomeSection />
+
+      {/* SECTION 3 – CHEF'S SPECIALS SHOWCASE */}
       <ChefsSpecials setActiveTab={setActiveTab} />
 
       {/* MID-BANNER: PRESS AND ACCLAIMED FEATURES */}

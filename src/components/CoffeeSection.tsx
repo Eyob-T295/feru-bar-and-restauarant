@@ -81,8 +81,8 @@ export default function CoffeeSection() {
           <h1 className="text-4xl sm:text-6xl font-serif text-white font-bold tracking-wide">
             The Living Ceremony
           </h1>
-          <div className="w-16 h-0.5 bg-gold-500 mx-auto" />
-          <p className="text-base sm:text-lg text-onyx-200 font-light font-serif italic max-w-2xl mx-auto leading-relaxed">
+          <div className="w-16 h-0.5 bg-gold-400 mx-auto" />
+          <p className="text-base sm:text-lg text-[#FAF5EC] font-light font-serif italic max-w-2xl mx-auto leading-relaxed">
             "Bunna is our spirit. Originating in the ancient forests of Kaffa, the bean is a daily gathering of souls."
           </p>
         </div>
@@ -94,45 +94,45 @@ export default function CoffeeSection() {
           
           <div className="space-y-6">
             <div className="space-y-2">
-              <span className="text-xs uppercase tracking-widest text-gold-500 font-semibold">SENSORY JOURNEY</span>
-              <h2 className="text-3xl sm:text-4xl font-serif text-white font-bold">The Alchemy of Jebena Brewing</h2>
-              <div className="w-16 h-0.5 bg-gold-400" />
+              <span className="text-xs uppercase tracking-widest text-brand-orange font-semibold">SENSORY JOURNEY</span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-onyx-100 font-bold">The Alchemy of Jebena Brewing</h2>
+              <div className="w-16 h-0.5 bg-brand-orange" />
             </div>
             <p className="text-sm text-onyx-300 font-light leading-relaxed">
-              At Feru, the traditional coffee ceremony is treated not as a theatrical display, but as a living cultural ritual. Conducted daily in our lounge, it takes up to an hour—challenging the speed of modern life with ancient presence.
+              The traditional coffee ceremony is a daily ritual at Feru, inviting you to slow down and enjoy the warmth of ancient Ethiopian hospitality.
             </p>
 
             {/* Brewing Steps list */}
             <div className="space-y-6 pt-4">
               <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-gold-950 border border-gold-800/40 text-gold-400 flex items-center justify-center font-serif text-sm shrink-0 font-bold">1</div>
+                <div className="w-10 h-10 rounded-full bg-white border border-gold-300 text-brand-orange flex items-center justify-center font-serif text-sm shrink-0 font-bold shadow-sm">1</div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white uppercase tracking-wider">The Open Charcoal Roast ("Qollo")</h4>
-                  <p className="text-xs text-onyx-400 font-light mt-1">Raw organic green beans are washed and roasted over live hot coals on a flat iron pan. Watch as they sweat, crack, and turn dark oil-rich brown under the rhythmic panning motion of the host.</p>
+                  <h4 className="text-sm font-semibold text-onyx-150 uppercase tracking-wider">The Open Charcoal Roast ("Qollo")</h4>
+                  <p className="text-xs text-onyx-300 font-light mt-1">Watch green coffee beans roast over live coals on a flat iron pan until they crack and turn oil-rich dark brown.</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-gold-950 border border-gold-800/40 text-gold-400 flex items-center justify-center font-serif text-sm shrink-0 font-bold">2</div>
+                <div className="w-10 h-10 rounded-full bg-white border border-gold-300 text-brand-orange flex items-center justify-center font-serif text-sm shrink-0 font-bold shadow-sm">2</div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white uppercase tracking-wider">The Crushing of the Bean ("Mukecha")</h4>
-                  <p className="text-xs text-onyx-400 font-light mt-1">The warm roasted beans are brought to the table to allow patrons to inhale the rich, potent smoke. They are then ground by hand using an artisanal heavy wooden mortar and pestle.</p>
+                  <h4 className="text-sm font-semibold text-onyx-150 uppercase tracking-wider">The Crushing of the Bean ("Mukecha")</h4>
+                  <p className="text-xs text-onyx-300 font-light mt-1">Inhale the potent roast smoke at your table before the beans are ground by hand using a traditional mortar and pestle.</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-gold-950 border border-gold-800/40 text-gold-400 flex items-center justify-center font-serif text-sm shrink-0 font-bold">3</div>
+                <div className="w-10 h-10 rounded-full bg-white border border-gold-300 text-brand-orange flex items-center justify-center font-serif text-sm shrink-0 font-bold shadow-sm">3</div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white uppercase tracking-wider">The Clay Steeping</h4>
-                  <p className="text-xs text-onyx-400 font-light mt-1">The fine grounds are funneled into the narrow-necked <strong className="text-gold-300">Jebena</strong> pitcher with pure spring water. It is set directly on coal grids until water boils and bursts forth in rich bubbles.</p>
+                  <h4 className="text-sm font-semibold text-onyx-150 uppercase tracking-wider">The Clay Steeping</h4>
+                  <p className="text-xs text-onyx-300 font-light mt-1">The grounds are brewed with spring water in a narrow-necked clay Jebena pitcher over coals until boiling.</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-gold-950 border border-gold-800/40 text-gold-400 flex items-center justify-center font-serif text-sm shrink-0 font-bold">4</div>
+                <div className="w-10 h-10 rounded-full bg-white border border-gold-300 text-brand-orange flex items-center justify-center font-serif text-sm shrink-0 font-bold shadow-sm">4</div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white uppercase tracking-wider">The Perfect Steady Ribbon</h4>
-                  <p className="text-xs text-onyx-400 font-light mt-1">Our coffee masters hold the Jebena 1-2 feet above handless ceramic cups (<em className="text-gold-400">Cinny</em>), pouring a smooth unbroken black ribbon without spilling a drop, or disturbing the settled grounds.</p>
+                  <h4 className="text-sm font-semibold text-onyx-150 uppercase tracking-wider">The Perfect Steady Ribbon</h4>
+                  <p className="text-xs text-onyx-300 font-light mt-1">Our coffee masters pour a smooth, unbroken ribbon from the Jebena into handless ceramic cups (Cinny) with perfect steady grace.</p>
                 </div>
               </div>
             </div>
@@ -141,42 +141,42 @@ export default function CoffeeSection() {
           {/* Visual card overlay representing custom table elements */}
           <div className="relative group">
             <div className="absolute -inset-1.5 bg-gradient-to-r from-gold-600 to-gold-700/60 rounded-lg blur opacity-15" />
-            <div className="relative rounded-lg overflow-hidden border border-gold-900/25 bg-onyx-950 p-8 space-y-8 shadow-2xl">
+            <div className="relative rounded-lg overflow-hidden border border-gold-250 bg-white p-8 space-y-8 shadow-gold-glow">
               
-              <div className="flex items-center gap-4 border-b border-onyx-900 pb-4">
-                <Coffee className="w-8 h-8 text-gold-500" strokeWidth="1" />
+              <div className="flex items-center gap-4 border-b border-gold-100 pb-4">
+                <Coffee className="w-8 h-8 text-brand-orange" strokeWidth="1" />
                 <div>
-                  <h3 className="text-lg font-serif font-bold text-white">Traditional Seating Set</h3>
-                  <p className="text-[10px] uppercase text-gold-500 tracking-widest font-bold">Sacred hospitality elements</p>
+                  <h3 className="text-lg font-serif font-bold text-onyx-100">Traditional Seating Set</h3>
+                  <p className="text-[10px] uppercase text-brand-orange tracking-widest font-bold font-sans">Sacred hospitality elements</p>
                 </div>
               </div>
 
-              <div className="space-y-4 font-light text-xs text-onyx-300">
+              <div className="space-y-4 font-light text-xs text-onyx-200 font-sans">
                 <p>
                   To experience the ceremony is to experience connection. When you partake at Feru:
                 </p>
                 <ul className="space-y-3.5 list-none">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                    <span><strong>Frankincense Burning:</strong> High-grade organic resins burn throughout the room, creating a soothing woody smoke canopy to clear user senses.</span>
+                    <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
+                    <span><strong>Frankincense Burning:</strong> High-grade organic resins burn throughout the room, creating a soothing woody smoke canopy.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                    <span><strong>Fresh Grass Floor ("Ketema"):</strong> Soft freshly cut grass is spread over our ceremonial mats to symbolize cosmic peace, regrowth, and spring vitality.</span>
+                    <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
+                    <span><strong>Fresh Grass Floor ("Ketema"):</strong> Soft freshly cut grass is spread over mats to symbolize peace and regrowth.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                    <span><strong>Roasted Corn Side ("Kolo"):</strong> To accompany the coffee acidity, we serve crunchy toasted barley kernels, peanuts, and honey snacks.</span>
+                    <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
+                    <span><strong>Roasted Corn Side ("Kolo"):</strong> Rhythmic coffee sips are paired with crunchy toasted barley, peanuts, and honey seeds.</span>
                   </li>
                 </ul>
               </div>
 
               <div className="pt-2">
-                <div className="bg-gold-950/20 border border-gold-900/50 rounded-lg p-5 flex items-start gap-3">
-                  <Info className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" />
+                <div className="bg-gold-50 border border-gold-200 rounded-lg p-5 flex items-start gap-3">
+                  <Info className="w-5 h-5 text-brand-orange shrink-0 mt-0.5" />
                   <div>
-                    <span className="block text-xs font-semibold text-white">Daily Showtimes & Cost</span>
-                    <span className="block text-[11px] text-onyx-300 mt-1">Conducts every evening at <strong>5:00 PM</strong>. Complimentary for dining patrons or <strong>$12/guest</strong> for open walk-ins including organic kolo and incense.</span>
+                    <span className="block text-xs font-semibold text-onyx-100">Daily Showtimes & Cost</span>
+                    <span className="block text-[11px] text-onyx-300 mt-1">Conducted daily at <strong>5:00 PM</strong>. Complimentary for dining patrons or <strong>$12/guest</strong> for walk-ins.</span>
                   </div>
                 </div>
               </div>
@@ -192,11 +192,11 @@ export default function CoffeeSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center space-y-2">
-            <span className="text-xs uppercase tracking-widest text-gold-500 font-semibold">THE THREE SACRED ROUNDS</span>
-            <h2 className="text-3xl font-serif text-white font-bold">Unfolding of the Cups</h2>
-            <div className="w-16 h-0.5 bg-gold-900 mx-auto" />
-            <p className="text-sm font-light text-onyx-400 max-w-xl mx-auto">
-              Guests are traditionally poured three distinct cups representing evolving layers of communication and blessings.
+            <span className="text-xs uppercase tracking-widest text-[#B28F4D] font-bold font-sans">THE THREE SACRED ROUNDS</span>
+            <h2 className="text-3xl font-serif text-onyx-100 font-bold">Unfolding of the Cups</h2>
+            <div className="w-16 h-0.5 bg-brand-orange mx-auto" />
+            <p className="text-sm font-light text-onyx-300 max-w-xl mx-auto">
+              Guests are served three distinct cups representing evolving layers of connection and blessings.
             </p>
           </div>
 
@@ -204,20 +204,20 @@ export default function CoffeeSection() {
             {rounds.map((round, index) => (
               <div
                 key={round.name}
-                className="bg-onyx-950 p-6 rounded border border-onyx-900 hover:border-gold-900/40 transition-all duration-300 space-y-4 shadow-lg text-center flex flex-col items-center"
+                className="bg-white p-6 rounded border border-gold-200 hover:border-brand-orange/40 transition-all duration-300 space-y-4 shadow-sm hover:shadow-md text-center flex flex-col items-center"
               >
-                <div className="w-12 h-12 rounded-full bg-gold-950 border border-gold-900/40 text-gold-400 flex items-center justify-center font-bold text-sm shrink-0">
+                <div className="w-12 h-12 rounded-full bg-gold-50 border border-gold-200 text-brand-orange flex items-center justify-center font-bold text-sm shrink-0">
                   {index === 0 ? "I" : index === 1 ? "II" : "III"}
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-lg font-serif font-semibold text-white">{round.name}</h4>
-                  <span className="block text-[10px] text-gold-500 tracking-widest font-bold uppercase">{round.purpose}</span>
+                  <h4 className="text-lg font-serif font-semibold text-onyx-100">{round.name}</h4>
+                  <span className="block text-[10px] text-brand-orange tracking-widest font-bold uppercase">{round.purpose}</span>
                 </div>
-                <p className="text-xs text-onyx-400 leading-relaxed font-light">
+                <p className="text-xs text-onyx-300 leading-relaxed font-light font-sans">
                   {round.culturalNote}
                 </p>
-                <div className="pt-2 border-t border-onyx-900 w-full text-[10px] text-onyx-500">
-                  Intensity: <span className="text-gold-300 font-serif italic">{round.intensity}</span>
+                <div className="pt-2 border-t border-gold-100 w-full text-[10px] text-onyx-400 font-sans">
+                  Intensity: <span className="text-brand-orange font-serif italic font-medium">{round.intensity}</span>
                 </div>
               </div>
             ))}
@@ -229,16 +229,16 @@ export default function CoffeeSection() {
       {/* Interactive Single-Origin Scent Profile Explorer */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-2">
-          <span className="text-xs uppercase tracking-widest text-gold-500 font-semibold font-sans">TERROIR SPECIFICS</span>
-          <h2 className="text-3xl font-serif text-white font-bold">Select Your Origin Profile</h2>
-          <div className="w-12 h-0.5 bg-gold-900 mx-auto" stroke-width="1" />
-          <p className="text-sm text-onyx-400 font-light max-w-md mx-auto">
-            Choose a region to view altitude details, roast alignments, and detailed flavor notes.
+          <span className="text-xs uppercase tracking-widest text-[#B28F4D] font-bold font-sans">TERROIR SPECIFICS</span>
+          <h2 className="text-3xl font-serif text-onyx-100 font-bold">Select Your Origin Profile</h2>
+          <div className="w-12 h-0.5 bg-brand-orange mx-auto" />
+          <p className="text-sm text-onyx-300 font-light max-w-md mx-auto">
+            Explore cup parameters, roast levels, and distinct origin cupping notes.
           </p>
         </div>
 
         {/* Region selections */}
-        <div className="flex justify-center border-b border-onyx-900">
+        <div className="flex justify-center border-b border-gold-200">
           <div className="flex space-x-8 -mb-[1px]">
             {coffeeZones.map((zone) => (
               <button
@@ -246,8 +246,8 @@ export default function CoffeeSection() {
                 onClick={() => setSelectedZone(zone.id)}
                 className={`py-4 text-xs font-semibold tracking-widest uppercase border-b-2 transition-all ${
                   selectedZone === zone.id
-                    ? "border-gold-500 text-gold-300 font-bold"
-                    : "border-transparent text-onyx-400 hover:text-white"
+                    ? "border-brand-orange text-brand-orange font-bold"
+                    : "border-transparent text-onyx-400 hover:text-brand-orange"
                 }`}
               >
                 {zone.name.split(" ")[0]}
@@ -264,15 +264,15 @@ export default function CoffeeSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-onyx-900/20 border border-gold-900/15 p-8 rounded-lg shadow-xl"
+            className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-white border border-gold-200 p-8 rounded-lg shadow-sm hover:shadow-md"
           >
-            <div className="col-span-1 md:col-span-4 flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-onyx-800 text-center space-y-3 shrink-0">
-              <div className="w-16 h-16 bg-gold-950 rounded-full flex items-center justify-center text-gold-400 shadow-inner">
+            <div className="col-span-1 md:col-span-4 flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-gold-100 text-center space-y-3 shrink-0">
+              <div className="w-16 h-16 bg-gold-50 rounded-full flex items-center justify-center text-brand-orange shadow-inner">
                 <Coffee className="w-7 h-7" strokeWidth="1" />
               </div>
               <div>
-                <span className="block font-serif text-xl font-bold text-white">{activeZoneInfo.name}</span>
-                <span className="block text-[10px] text-gold-500 tracking-wider font-bold mt-0.5">EST. ORIGIN</span>
+                <span className="block font-serif text-xl font-bold text-onyx-100">{activeZoneInfo.name}</span>
+                <span className="block text-[10px] text-brand-orange tracking-wider font-bold mt-0.5">EST. ORIGIN</span>
               </div>
             </div>
 
@@ -282,23 +282,23 @@ export default function CoffeeSection() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <div className="bg-onyx-950 p-4 rounded border border-onyx-900">
-                  <span className="block text-[8px] uppercase tracking-widest text-onyx-500">Altitude Zone</span>
-                  <span className="block text-xs font-bold text-white mt-1">{activeZoneInfo.altitude}</span>
+                <div className="bg-gold-50 p-4 rounded border border-gold-150">
+                  <span className="block text-[8px] uppercase tracking-widest text-onyx-400">Altitude Zone</span>
+                  <span className="block text-xs font-bold text-onyx-100 mt-1">{activeZoneInfo.altitude}</span>
                 </div>
-                <div className="bg-onyx-950 p-4 rounded border border-onyx-900">
-                  <span className="block text-[8px] uppercase tracking-widest text-onyx-500">Roast Target</span>
-                  <span className="block text-xs font-bold text-white mt-1">{activeZoneInfo.roastProfile}</span>
+                <div className="bg-gold-50 p-4 rounded border border-gold-150">
+                  <span className="block text-[8px] uppercase tracking-widest text-onyx-400">Roast Target</span>
+                  <span className="block text-xs font-bold text-onyx-100 mt-1">{activeZoneInfo.roastProfile}</span>
                 </div>
-                <div className="bg-onyx-950 p-4 rounded border border-onyx-900">
-                  <span className="block text-[8px] uppercase tracking-widest text-onyx-500">Mouthfeel</span>
-                  <span className="block text-xs font-bold text-white mt-1">{activeZoneInfo.body}</span>
+                <div className="bg-gold-50 p-4 rounded border border-gold-150">
+                  <span className="block text-[8px] uppercase tracking-widest text-[#BBC050] text-onyx-400">Mouthfeel</span>
+                  <span className="block text-xs font-bold text-onyx-100 mt-1">{activeZoneInfo.body}</span>
                 </div>
               </div>
 
-              <div className="bg-gold-950/20 border border-gold-900/30 p-4 rounded-lg">
-                <span className="block text-[9px] uppercase tracking-widest text-gold-500 font-bold mb-1 header">Cupping & Scent Notes</span>
-                <p className="text-xs text-gold-100 font-medium italic font-serif leading-relaxed">
+              <div className="bg-gold-50 border border-gold-200 p-4 rounded-lg">
+                <span className="block text-[9px] uppercase tracking-widest text-brand-orange font-bold mb-1 font-sans">Cupping & Scent Notes</span>
+                <p className="text-xs text-brand-orange font-medium italic font-serif leading-relaxed">
                   "{activeZoneInfo.flavorNotes}"
                 </p>
               </div>

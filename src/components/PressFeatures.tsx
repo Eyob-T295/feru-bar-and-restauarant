@@ -1,157 +1,213 @@
-import React from "react";
-import { ExternalLink, Play, Award, Sparkles, Newspaper } from "lucide-react";
+import { ExternalLink, Award, Quote } from "lucide-react";
 import { motion } from "motion/react";
+// @ts-ignore
+import wpLogo from "../assets/images/wp.png";
+// @ts-ignore
+import alexandriaLogo from "../assets/images/alexandria.png";
+// @ts-ignore
+import patchLogo from "../assets/images/patch.png";
+
+const features = [
+  {
+    id: "wapo-jul-2024",
+    image: wpLogo,
+    outlet: "The Washington Post",
+    date: "July 2024",
+    badge: "Featured Review",
+    badgeColor: "bg-black text-white",
+    headline: "Ethiopian Restaurant in Van Dorn Shopping Center Named a Great, Affordable Spot",
+    excerpt:
+      "The Washington Post food critic spotlights Feru as a standout for authentic, affordable Ethiopian cuisine in the Alexandria area.",
+    url: "https://www.alxnow.com/2024/07/17/washington-post-highlights-ethiopian-restaurant-in-van-dorn-shopping-center-as-great-affordable-spot/",
+    accent: "border-l-black",
+    hoverBorder: "hover:border-black/30",
+  },
+  {
+    id: "wapo-nov-2024",
+    image: wpLogo,
+    outlet: "The Washington Post",
+    date: "November 2024",
+    badge: "Best of 2024",
+    badgeColor: "bg-black text-white",
+    headline: "Best Restaurants in Alexandria — Top Picks by Washington Post Critics",
+    excerpt:
+      "Named one of the best restaurants in all of Alexandria, Virginia — recognized for exceptional food, atmosphere, and cultural authenticity.",
+    url: "https://www.washingtonpost.com/dc-md-va/2024/11/08/best-restaurants-alexandria/",
+    accent: "border-l-black",
+    hoverBorder: "hover:border-black/30",
+  },
+  {
+    id: "visit-alexandria",
+    image: alexandriaLogo,
+    outlet: "Visit Alexandria",
+    date: "Official Listing",
+    badge: "City Guide",
+    badgeColor: "bg-amber-600 text-white",
+    headline: "Feru Bar & Restaurant — Alexandria's Official Tourism Spotlight",
+    excerpt:
+      "Listed by Visit Alexandria as a must-visit dining destination, celebrating Ethiopia's rich culinary heritage in the heart of the city.",
+    url: "https://visitalexandria.com/listings/feru-bar-restaurant/",
+    accent: "border-l-amber-500",
+    hoverBorder: "hover:border-amber-400/40",
+  },
+  {
+    id: "patch",
+    image: patchLogo,
+    outlet: "Patch · Old Town Alexandria",
+    date: "2024",
+    badge: "Local Pick",
+    badgeColor: "bg-emerald-700 text-white",
+    headline: "Alexandria Eatery Named Great, Affordable Dining Pick by Post Food Critic",
+    excerpt:
+      "Patch Alexandria covers Feru's recognition as a top local eatery — praised for bold spices, generous portions, and warm hospitality.",
+    url: "https://patch.com/virginia/oldtownalexandria/alexandria-eatery-named-great-affordable-dining-post-food-critic",
+    accent: "border-l-emerald-600",
+    hoverBorder: "hover:border-emerald-400/40",
+  },
+];
 
 export default function PressFeatures() {
-  const pressArticles = [
-    {
-      id: "wapo",
-      outlet: "The Washington Post",
-      logoType: "wapo",
-      headline: "Feru Elevates Alexandria's East African Scene With Majestic Flavors",
-      excerpt: "An exceptional masterclass in slow-simmered stews, house-fermented teff bread, and rare clay-pot coffee rituals.",
-      linkText: "Read Gazette Feature",
-      url: "https://www.washingtonpost.com",
-      videoUrl: null,
-      color: "border-gray-800 hover:border-black/50"
-    },
-    {
-      id: "visit-alexandia",
-      outlet: "Visit Alexandria",
-      logoType: "alexandria",
-      headline: "The Complete Culinary Journey Awaits on Historic King Street Corridor",
-      excerpt: "Feru brings the soul of Addis Ababa to Old Town, featuring authentic spices and luxurious communal dining formats.",
-      linkText: "Watch Dining Video Guide",
-      url: "https://www.visitalexandriava.com",
-      videoUrl: "#",
-      color: "border-amber-100 hover:border-amber-400"
-    },
-    {
-      id: "patch",
-      outlet: "Alexandria Patch",
-      logoType: "patch",
-      headline: "Feru Restaurant Named Top Cultural Destination In Northern Virginia",
-      excerpt: "From organic, master-poured espresso ceremonies to standard-setting doro wot stews, a dining room must-go.",
-      linkText: "Read Local Review",
-      url: "https://patch.com/virginia/oldtownalexandria",
-      videoUrl: null,
-      color: "border-emerald-100 hover:border-emerald-400"
-    }
-  ];
-
   return (
-    <section className="relative py-20 bg-gradient-to-b from-onyx-950 via-[#FCFAF6] to-onyx-950 border-y border-gold-200 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(178,143,77,0.04)_0%,transparent_50%)] pointer-events-none" />
+    <section className="relative py-24 overflow-hidden bg-[#FAF9F6] border-y border-gold-200/50">
+      {/* Subtle radial background warm glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(178,143,77,0.06)_0%,transparent_60%)] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center space-y-3 mb-14">
-          <div className="inline-flex items-center gap-1.5 bg-brand-orange/10 px-3.5 py-1 rounded-full border border-brand-orange/20">
+
+        {/* ── Section header ── */}
+        <div className="text-center mb-16 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 bg-brand-orange/8 border border-brand-orange/20 px-4 py-1.5 rounded-full"
+          >
             <Award className="w-3.5 h-3.5 text-brand-orange" />
-            <span className="text-[10px] uppercase font-sans tracking-[0.25em] text-brand-orange font-bold">
-              Press & Accolades
+            <span className="text-[10px] uppercase tracking-[0.3em] text-brand-orange font-black">
+              Press &amp; Accolades
             </span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-serif text-gold-900 font-bold tracking-tight">
-            Featured On The Media
-          </h2>
-          <div className="w-16 h-0.5 bg-brand-orange mx-auto" />
-          <p className="text-xs text-onyx-300 font-light max-w-md mx-auto">
-            Honored by respected journalists, regional guides, and food critics across Washington DC and Northern Virginia.
-          </p>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl sm:text-5xl font-serif text-onyx-100 font-bold"
+          >
+            As Featured In
+          </motion.h2>
+
+          <div className="w-16 h-[1.5px] bg-brand-orange mx-auto" />
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-sm text-onyx-300 font-light max-w-md mx-auto"
+          >
+            Recognized by leading voices across Washington D.C. and Northern Virginia.
+          </motion.p>
         </div>
 
-        {/* Press Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pressArticles.map((article) => (
-            <motion.div
-              key={article.id}
+        {/* ── Press logo strip (decorative) ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="flex items-center justify-center gap-8 sm:gap-14 mb-16 flex-wrap"
+        >
+          {[
+            { img: wpLogo, alt: "Washington Post", cls: "h-8 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" },
+            { img: alexandriaLogo, alt: "Visit Alexandria", cls: "h-8 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" },
+            { img: patchLogo, alt: "Patch", cls: "h-8 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" },
+          ].map((l) => (
+            <img key={l.alt} src={l.img} alt={l.alt} className={l.cls} />
+          ))}
+        </motion.div>
+
+        {/* ── Press cards grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          {features.map((f, i) => (
+            <motion.a
+              key={f.id}
+              href={f.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.09 }}
               whileHover={{ y: -6 }}
-              className={`bg-white rounded-xl p-8 border hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-6 ${article.color}`}
+              className={`group bg-white rounded-xl border border-gold-200/80 ${f.hoverBorder} hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden cursor-pointer`}
             >
-              <div className="space-y-4">
-                {/* Logo Display area with extremely visible and large custom layouts */}
-                <div className="h-14 flex items-center border-b border-gold-100 pb-3">
-                  {article.logoType === "wapo" && (
-                    <div className="flex flex-col items-start">
-                      <span className="font-serif font-black text-2xl tracking-tighter text-black uppercase">
-                        The Washington Post
-                      </span>
-                      <span className="text-[9px] tracking-widest text-zinc-500 font-sans uppercase font-semibold">
-                        CRITIC'S CHOICES
-                      </span>
-                    </div>
-                  )}
-
-                  {article.logoType === "alexandria" && (
-                    <div className="flex items-center gap-2">
-                      <div className="px-2.5 py-1 bg-amber-500 text-white rounded text-xs font-serif font-black">
-                        VA
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-sans font-bold text-base tracking-wide text-zinc-900 uppercase">
-                          Visit Alexandria
-                        </span>
-                        <span className="text-[8px] text-zinc-400 uppercase tracking-widest font-semibold">
-                          CORRIDOR HIGHLIGHTS
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {article.logoType === "patch" && (
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded bg-emerald-600 flex items-center justify-center text-white text-base font-black font-sans">
-                        P
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-sans font-black text-lg text-emerald-700 tracking-tight">
-                          Patch
-                        </span>
-                        <span className="text-[8px] text-zinc-400 uppercase tracking-widest font-semibold">
-                          ALEXANDRIA LOCAL NEWS
-                        </span>
-                      </div>
-                    </div>
-                  )}
+              {/* Logo image header */}
+              <div className="relative h-28 bg-[#F5F3EF] flex items-center justify-center px-6 border-b border-gold-100 overflow-hidden">
+                <img
+                  src={f.image}
+                  alt={f.outlet}
+                  className="max-h-16 max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+                {/* Date badge top right */}
+                <div className="absolute top-3 right-3">
+                  <span className="text-[8px] uppercase tracking-widest text-onyx-300 font-bold bg-white border border-gold-200 px-2 py-0.5 rounded">
+                    {f.date}
+                  </span>
                 </div>
-
-                {/* Headline & Description */}
-                <div className="space-y-2">
-                  <h3 className="text-base font-serif font-bold text-gold-900 leading-snug hover:text-brand-orange transition-colors">
-                    "{article.headline}"
-                  </h3>
-                  <p className="text-[11.5px] text-onyx-200 leading-normal font-light">
-                    {article.excerpt}
-                  </p>
+                {/* Feature badge top left */}
+                <div className="absolute top-3 left-3">
+                  <span className={`text-[8px] uppercase tracking-widest font-black px-2 py-0.5 rounded ${f.badgeColor}`}>
+                    {f.badge}
+                  </span>
                 </div>
               </div>
 
-              {/* URL Outbound and Video indicators */}
-              <div className="pt-2 flex items-center justify-between">
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-brand-orange hover:text-vibrant-red font-bold uppercase tracking-wider"
-                >
-                  <Newspaper className="w-3.5 h-3.5 shrink-0" />
-                  {article.linkText}
-                  <ExternalLink className="w-3 h-3 text-brand-orange/60" />
-                </a>
+              {/* Content body */}
+              <div className={`flex flex-col flex-1 p-5 space-y-3 border-l-4 ${f.accent}`}>
+                {/* Quote icon */}
+                <Quote className="w-4 h-4 text-brand-orange/40 shrink-0" />
 
-                {/* If there is video content, add play badge */}
-                {article.videoUrl && (
-                  <div className="flex items-center gap-1 text-[9px] bg-amber-500/10 text-brand-orange px-2 py-1 rounded font-bold uppercase tracking-wider font-sans border border-amber-500/20">
-                    <Play className="w-2.5 h-2.5 fill-brand-orange text-brand-orange" />
-                    Video Content
+                <h3 className="text-sm font-serif font-bold text-onyx-100 leading-snug group-hover:text-brand-orange transition-colors duration-200 line-clamp-3">
+                  {f.headline}
+                </h3>
+
+                <p className="text-[11.5px] text-onyx-300 leading-relaxed font-light flex-1 line-clamp-3">
+                  {f.excerpt}
+                </p>
+
+                {/* Footer link */}
+                <div className="pt-3 border-t border-gold-100 flex items-center justify-between">
+                  <span className="text-[9px] uppercase tracking-widest text-onyx-400 font-bold truncate pr-2">
+                    {f.outlet}
+                  </span>
+                  <div className="flex items-center gap-1 text-brand-orange group-hover:text-vibrant-red transition-colors shrink-0">
+                    <span className="text-[9px] font-black uppercase tracking-wider">Read</span>
+                    <ExternalLink className="w-3 h-3" />
                   </div>
-                )}
+                </div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
+
+        {/* ── Bottom quote strip ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-16 bg-gradient-to-r from-brand-orange/5 via-amber-500/5 to-brand-orange/5 border border-brand-orange/15 rounded-2xl px-8 py-8 text-center space-y-3"
+        >
+          <Quote className="w-6 h-6 text-brand-orange mx-auto opacity-50" />
+          <p className="font-serif italic text-xl sm:text-2xl text-onyx-100 font-medium max-w-2xl mx-auto leading-relaxed">
+            "A great, affordable spot for authentic Ethiopian cuisine that delivers bold flavor and warm hospitality."
+          </p>
+          <span className="block text-[10px] uppercase tracking-[0.35em] text-brand-orange font-black">
+            — The Washington Post, 2024
+          </span>
+        </motion.div>
 
       </div>
     </section>

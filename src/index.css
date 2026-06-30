@@ -3,7 +3,7 @@
 
 :root {
   --brand-orange: #C14F26;
-  --coffee-deep: #1A100B;
+  --coffee-deep: #2C1A0D;
   --gold-accent: #B28F4D;
   --warm-bronze: #8F7255;
   --cream-gold: #E5CDAA;
@@ -13,70 +13,70 @@
   --olive-accent: #5C5832;
   --vibrant-red: #B02A1E;
   --body-text: #2C2621;
-  --main-bg: #FAF9F6;
+  --main-bg: #FAF5EC;
   
-  --gold-50: #FAF9F6;
-  --gold-100: #EFECE6;
-  --gold-200: #E2DBD0;
-  --gold-300: #CBAE8B;
+  --gold-50: #FAF5EC;
+  --gold-100: #F3ECE0;
+  --gold-200: #EADFCF;
+  --gold-300: #D8C5AD;
   --gold-400: #B28F4D;
   --gold-500: #8F7255;
   --gold-600: #70563C;
   --gold-700: #523821;
   --gold-800: #332012;
-  --gold-900: #1A100B;
-  --gold-950: #FAF9F6;
+  --gold-900: #2C1A0D;
+  --gold-950: #FAF5EC;
   
-  --onyx-50: #FAF9F6;
-  --onyx-100: #1E1815;
-  --onyx-200: #2E2622;
-  --onyx-300: #50453E;
-  --onyx-400: #8C7C72;
-  --onyx-500: #BCAFA3;
+  --onyx-50: #FAF5EC;
+  --onyx-100: #2C1A0D;
+  --onyx-200: #3C2618;
+  --onyx-300: #5C4637;
+  --onyx-400: #8C7565;
+  --onyx-500: #BCA493;
   --onyx-600: #DDD5C9;
   --onyx-700: #EAE3D8;
-  --onyx-800: #EFECE6;
-  --onyx-900: #FAF7F2;
-  --onyx-950: #FAF9F6;
+  --onyx-800: #F3ECE0;
+  --onyx-900: #FAF4E8;
+  --onyx-950: #FAF5EC;
 }
 
 .dark {
-  --brand-orange: #E0622F; /* Brand Orange */
-  --coffee-deep: #392211;  /* Deep Coffee Brown */
-  --gold-accent: #EFB238;  /* Luxury Gold */
+  --brand-orange: #C14F26;
+  --coffee-deep: #2C1A0D;
+  --gold-accent: #B28F4D;
   --warm-bronze: #8F7255;
-  --cream-gold: #F2CF88;   /* Cream Gold */
+  --cream-gold: #E5CDAA;
   
-  --dark-bronze: #EFB238;
-  --burnt-orange: #E0622F;
-  --olive-accent: #F2CF88;
-  --vibrant-red: #EFB238;
-  --body-text: #FAF9F6;
-  --main-bg: #050505;      /* Dark Background */
+  --dark-bronze: #5C4127;
+  --burnt-orange: #AB421B;
+  --olive-accent: #5C5832;
+  --vibrant-red: #B02A1E;
+  --body-text: #2C2621;
+  --main-bg: #FAF5EC;
   
-  --gold-50: #120B07;      /* Warm dark charcoal base */
-  --gold-100: #22150E;
-  --gold-200: #392211;     /* Deep Coffee Brown Border */
-  --gold-300: #5E3D23;
-  --gold-400: #EFB238;     /* Luxury Gold */
-  --gold-500: #F2CF88;     /* Cream Gold */
-  --gold-600: #E5CDAA;
-  --gold-700: #FAF9F6;
-  --gold-800: #FFFFFF;
-  --gold-900: #FFFFFF;
-  --gold-950: #050505;     /* Dark Background */
+  --gold-50: #FAF5EC;
+  --gold-100: #F3ECE0;
+  --gold-200: #EADFCF;
+  --gold-300: #D8C5AD;
+  --gold-400: #B28F4D;
+  --gold-500: #8F7255;
+  --gold-600: #70563C;
+  --gold-700: #523821;
+  --gold-800: #332012;
+  --gold-900: #2C1A0D;
+  --gold-950: #FAF5EC;
   
-  --onyx-50: #0D0806;
-  --onyx-100: #FAF9F6;     /* Clean off-white text */
-  --onyx-200: #F2CF88;     /* Cream gold text */
-  --onyx-300: #E5CDAA;     /* Light cream details */
-  --onyx-400: #A89582;
-  --onyx-500: #392211;     /* Deep Coffee Brown Borders */
-  --onyx-600: #2A190C;
-  --onyx-700: #120C08;     /* Luxurious deep brown card background */
-  --onyx-800: #0A0604;     /* Cozier darker background */
-  --onyx-900: #050505;     /* Pitch dark background mapping */
-  --onyx-950: #050505;     /* Full dark background */
+  --onyx-50: #FAF5EC;
+  --onyx-100: #2C1A0D;
+  --onyx-200: #3C2618;
+  --onyx-300: #5C4637;
+  --onyx-400: #8C7565;
+  --onyx-500: #BCA493;
+  --onyx-600: #DDD5C9;
+  --onyx-700: #EAE3D8;
+  --onyx-800: #F3ECE0;
+  --onyx-900: #FAF4E8;
+  --onyx-950: #FAF5EC;
 }
 
 @theme {
@@ -196,61 +196,5 @@
     0 5px 15px rgba(44, 26, 15, 0.03);
 }
 
-/* Custom Dark-Mode helper targeters to translate hardcoded light colors */
-.dark .bg-white {
-  background-color: var(--onyx-700) !important;
-}
-.dark .bg-luxury-gradient {
-  background: linear-gradient(
-    135deg,
-    #120C08 0%,
-    #1C120B 42%,
-    #2B1A10 100%
-  ) !important;
-}
-.dark .text-onyx-100 {
-  color: var(--onyx-100) !important;
-}
-.dark .text-onyx-200 {
-  color: var(--onyx-200) !important;
-}
-.dark .text-onyx-300 {
-  color: var(--onyx-300) !important;
-}
-.dark .border-gold-100 {
-  border-color: var(--gold-100) !important;
-}
-.dark .border-gold-200 {
-  border-color: var(--gold-200) !important;
-}
-.dark .bg-gold-50 {
-  background-color: var(--onyx-800) !important;
-}
-.dark .bg-gold-50\/55 {
-  background-color: rgba(18, 12, 8, 0.55) !important;
-}
-.dark .bg-gold-50\/80 {
-  background-color: rgba(18, 12, 8, 0.8) !important;
-}
-.dark .shadow-gold-glow {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(239, 178, 56, 0.05) !important;
-}
-.dark .text-[#1A100B] {
-  color: var(--onyx-100) !important;
-}
-.dark .text-[#523821] {
-  color: var(--onyx-200) !important;
-}
-.dark .text-[#70563C] {
-  color: var(--onyx-300) !important;
-}
-.dark .bg-[#FAF9F6] {
-  background-color: var(--onyx-950) !important;
-}
-.dark .border-[#E2DBD0] {
-  border-color: var(--gold-200) !important;
-}
-.dark .bg-[#FAF7F2] {
-  background-color: var(--onyx-800) !important;
-}
+
 

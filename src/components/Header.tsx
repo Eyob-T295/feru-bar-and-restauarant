@@ -9,23 +9,19 @@ import feruLogoGenerated from "../assets/images/feru_logo_1781787714859.jpg";
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  theme: "dark" | "light";
-  toggleTheme: () => void;
 }
 
 export default function Header(props: HeaderProps) {
-  const { activeTab, setActiveTab, theme, toggleTheme } = props;
+  const { activeTab, setActiveTab } = props;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [logoSource, setLogoSource] = React.useState<"custom" | "generated" | "fallback">("custom");
 
   const navItems = [
     { id: "home", label: "Home" },
+    { id: "about", label: "About Us" },
     { id: "menu", label: "Menu" },
     { id: "coffee", label: "Ceremony" },
     { id: "reservations", label: "Reservations" },
-    { id: "events", label: "Events" },
-    { id: "catering", label: "Catering" },
-    { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -69,12 +65,12 @@ export default function Header(props: HeaderProps) {
             
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="text-xl sm:text-2xl font-serif font-black tracking-[0.25em] text-white group-hover:text-amber-500 transition-colors uppercase duration-300">
+                <span className="text-xl sm:text-2xl font-serif font-black tracking-[0.25em] text-onyx-100 group-hover:text-brand-orange transition-colors uppercase duration-300">
                   FERU
                 </span>
                 <div className="w-2 h-2 rounded-full bg-brand-orange self-center mt-0.5"></div>
               </div>
-              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] font-extrabold text-brand-orange group-hover:text-amber-500 transition-colors uppercase duration-300">
+              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] font-extrabold text-[#8F7255] group-hover:text-brand-orange transition-colors uppercase duration-300">
                 Bar & Restaurant
               </span>
             </div>
@@ -104,26 +100,7 @@ export default function Header(props: HeaderProps) {
             ))}
           </nav>
 
-          {/* Header Action Buttons using accurate Brand Colors */}
           <div className="hidden xl:flex items-center space-x-4">
-            {/* Elegant Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 px-3 rounded-full border border-gold-900/30 hover:border-brand-orange/50 text-[#F2CF88] hover:text-[#E0622F] bg-gold-900/10 hover:bg-[#E0622F]/5 transition-all duration-300 flex items-center gap-2 cursor-pointer group mr-2"
-              title={theme === "dark" ? "Switch to Alabaster Light" : "Switch to Deep Espresso Dark"}
-            >
-              {theme === "dark" ? (
-                <>
-                  <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-500" />
-                  <span className="text-[10px] font-bold tracking-wider uppercase font-sans text-gold-400">Ivory Mode</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="w-4 h-4 text-[#C14F26] group-hover:-rotate-12 transition-transform duration-500" />
-                  <span className="text-[10px] font-bold tracking-wider uppercase font-sans text-gold-700">Dark Mode</span>
-                </>
-              )}
-            </button>
 
             <a 
               href="tel:+17035550291" 
@@ -146,18 +123,6 @@ export default function Header(props: HeaderProps) {
 
           {/* Mobile Menu Button */}
           <div className="flex xl:hidden items-center space-x-2">
-            {/* Mobile Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full border border-gold-900/20 hover:border-brand-orange/50 text-[#F2CF88] hover:text-[#E0622F] bg-gold-900/5 hover:bg-[#E0622F]/5 transition-all duration-300 cursor-pointer mr-1"
-              title={theme === "dark" ? "Switch to Alabaster Light" : "Switch to Deep Espresso Dark"}
-            >
-              {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-amber-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-brand-orange" />
-              )}
-            </button>
 
             <button
               id="mobile_reserve_btn"
@@ -200,8 +165,8 @@ export default function Header(props: HeaderProps) {
                   onClick={() => handleNavClick(item.id)}
                   className={`block w-full text-left py-3 px-4 rounded text-sm tracking-widest uppercase transition-all ${
                     activeTab === item.id
-                      ? "text-gold-400 bg-gold-950/20 border-l-2 border-gold-400 pl-4 font-semibold"
-                      : "text-onyx-300 hover:text-gold-100 pl-2"
+                      ? "text-brand-orange bg-gold-950/5 border-l-2 border-brand-orange pl-4 font-semibold"
+                      : "text-onyx-300 hover:text-brand-orange pl-2"
                   }`}
                 >
                   {item.label}

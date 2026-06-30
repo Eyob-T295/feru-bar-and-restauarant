@@ -1,118 +1,80 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { 
-  Sparkles, 
-  Calendar, 
-  BookOpen, 
-  Volume2, 
-  VolumeX, 
-  Play, 
-  Pause, 
-  ChevronDown 
-} from "lucide-react";
+import { Calendar, BookOpen, Sparkles, ChevronRight, Volume2, VolumeX, Play, Pause } from "lucide-react";
+// @ts-ignore
+import logoIntroVideo from "../assets/images/logointro.mp4";
 // @ts-ignore
 import feruLogoCustom from "../assets/images/ferulogo.png";
 // @ts-ignore
-import logoIntroVideo from "../assets/images/logointro.mp4";
+import imgBar from "../assets/gallery/bar.jpg";
+// @ts-ignore
+import imgBar1 from "../assets/gallery/bar1.jpg";
+// @ts-ignore
+import imgInside from "../assets/gallery/inside.jpg";
+// @ts-ignore
+import imgInside1 from "../assets/gallery/inside1.jpg";
+// @ts-ignore
+import imgInside2 from "../assets/gallery/inside2.jpg";
+// @ts-ignore
+import imgOutside from "../assets/gallery/outside.jpg";
+// @ts-ignore
+import imgTable2 from "../assets/gallery/table2.jpg";
+// @ts-ignore
+import imgTables from "../assets/gallery/tables.jpg";
 
 interface InteractiveHeroProps {
   setActiveTab: (tab: string) => void;
 }
 
+// Cycling bg images — pick the most atmospheric
+const BG_IMAGES = [imgInside, imgBar, imgBar1, imgInside1];
+
 export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) {
+  const [bgIndex, setBgIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [absMousePos, setAbsMousePos] = useState({ x: 0, y: 0 });
+  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+  const [activeBtnOffset, setActiveBtnOffset] = useState({ x: 0, y: 0 });
+  const [menuBtnOffset, setMenuBtnOffset] = useState({ x: 0, y: 0 });
+  const [hoveredMosaic, setHoveredMosaic] = useState<number | null>(null);
+
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
   const [videoError, setVideoError] = useState(false);
-  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
-  
-  // Magnetic button states
-  const [activeBtnOffset, setActiveBtnOffset] = useState({ x: 0, y: 0 });
-  const [menuBtnOffset, setMenuBtnOffset] = useState({ x: 0, y: 0 });
 
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Track standard scroll progress for the cinematic scale-down & fade
   const { scrollY } = useScroll();
-  const videoScale = useTransform(scrollY, [0, 500], [1, 0.75]);
-  const videoTranslateY = useTransform(scrollY, [0, 500], [0, 100]);
-  const steamOpacity = useTransform(scrollY, [0, 300, 500], [0, 0.9, 0]);
-  const steamScale = useTransform(scrollY, [0, 500], [0.8, 1.8]);
-  const contentFade = useTransform(scrollY, [0, 300], [1, 0]);
+  const contentFade = useTransform(scrollY, [0, 380], [1, 0]);
+  const bgParallax  = useTransform(scrollY, [0, 600], ["0%", "18%"]);
 
-  // Handle subtle 3D tilt calculations
+  // Auto-cycle background every 5s
+  useEffect(() => {
+    const t = setInterval(() => setBgIndex((i) => (i + 1) % BG_IMAGES.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMousePos({ x: x * 15, y: y * -15 });
+    setMousePos({ x: x * 10, y: y * -10 });
     setAbsMousePos({ x: e.clientX, y: e.clientY });
   };
-
   const handleMouseLeave = () => {
     setMousePos({ x: 0, y: 0 });
     setActiveBtnOffset({ x: 0, y: 0 });
     setMenuBtnOffset({ x: 0, y: 0 });
   };
-
-  // Magnetic button physics
-  const handleButtonMouseMove = (e: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - (rect.left + rect.width / 2);
-    const y = e.clientY - (rect.top + rect.height / 2);
-    // Draw cursor in with a 35% bounding force
-    const pullX = x * 0.35;
-    const pullY = y * 0.35;
-    
-    if (buttonId === "reserve") {
-      setActiveBtnOffset({ x: pullX, y: pullY });
-    } else {
-      setMenuBtnOffset({ x: pullX, y: pullY });
-    }
+  const handleBtnMove = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - (r.left + r.width / 2)) * 0.28;
+    const y = (e.clientY - (r.top  + r.height / 2)) * 0.28;
+    id === "reserve" ? setActiveBtnOffset({ x, y }) : setMenuBtnOffset({ x, y });
   };
-
-  const handleButtonMouseLeave = (buttonId: string) => {
-    if (buttonId === "reserve") {
-      setActiveBtnOffset({ x: 0, y: 0 });
-    } else {
-      setMenuBtnOffset({ x: 0, y: 0 });
-    }
-  };
-
-  // Generate deterministic floating objects reflecting Ethiopian culture (coffee, spices, sacred geometry)
-  const floatingObjects = useMemo(() => {
-    return [
-      // Roasted Coffee Beans
-      { id: "coffee-1", type: "coffee", size: 28, x: 12, y: 22, rotation: 35, speed: 12, delay: 0 },
-      { id: "coffee-2", type: "coffee", size: 22, x: 82, y: 15, rotation: -45, speed: 14, delay: 1.5 },
-      { id: "coffee-3", type: "coffee", size: 32, x: 74, y: 72, rotation: 115, speed: 18, delay: 0.5 },
-      { id: "coffee-4", type: "coffee", size: 18, x: 42, y: 84, rotation: 154, speed: 13, delay: 2 },
-      
-      // Star Anise / Cardamom Spices
-      { id: "spice-1", type: "staranise", size: 36, x: 86, y: 48, rotation: 12, speed: 16, delay: 0.8 },
-      { id: "spice-2", type: "cardamom", size: 20, x: 55, y: 20, rotation: 85, speed: 11, delay: 2.2 },
-      
-      // Ethiopian Sacred Geometric Grid Elements
-      { id: "geo-1", type: "cross_pattern", size: 48, x: 5, y: 65, rotation: 0, speed: 22, delay: 0 },
-      { id: "geo-2", type: "cross_pattern", size: 55, x: 88, y: 80, rotation: 45, speed: 25, delay: 1 }
-    ];
-  }, []);
-
-  // Ambient gold dust particles
-  const goldSparks = useMemo(() => {
-    return Array.from({ length: 30 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 8 + 6,
-      delay: Math.random() * 4,
-      drift: Math.random() * 30 - 15,
-    }));
-  }, []);
+  const handleBtnLeave = (id: string) =>
+    id === "reserve" ? setActiveBtnOffset({ x: 0, y: 0 }) : setMenuBtnOffset({ x: 0, y: 0 });
 
   const handleToggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -125,232 +87,160 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
   const handleTogglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch((err) => console.warn(err));
-      }
+      if (isPlaying) { videoRef.current.pause(); setIsPlaying(false); }
+      else { videoRef.current.play().then(() => setIsPlaying(true)).catch(console.warn); }
     }
   };
+
+  // Gold dust
+  const goldSparks = useMemo(() =>
+    Array.from({ length: 18 }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      size: Math.random() * 2.5 + 1,
+      duration: Math.random() * 8 + 6,
+      delay: Math.random() * 4,
+      drift: Math.random() * 28 - 14,
+    })), []);
 
   return (
     <section
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative bg-[#050505] min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-16 select-none border-b border-[#392211]/30"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-10 select-none"
       id="hero-stage"
     >
-      
-      {/* 1. Dynamic Cursor Spotlight Glow */}
-      <div 
-        className="absolute pointer-events-none inset-0 z-10 transition-opacity duration-500 bg-radial-spotlight opacity-0 sm:opacity-100"
+      {/* ── BG: auto-cycling full-bleed photo ── */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgParallax }}>
+        <AnimatePresence mode="sync">
+          <motion.img
+            key={bgIndex}
+            src={BG_IMAGES[bgIndex]}
+            alt="Feru ambiance"
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1,  scale: 1.02 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.4, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        </AnimatePresence>
+        {/* Overlay stack */}
+        <div className="absolute inset-0 bg-[#0A0604]/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030101]/90 via-[#030101]/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0604]/70" />
+      </motion.div>
+
+      {/* ── Cursor spotlight ── */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none hidden sm:block"
         style={{
-          background: `radial-gradient(450px circle at ${absMousePos.x}px ${absMousePos.y}px, rgba(224, 98, 47, 0.04), rgba(239, 178, 56, 0.02) 40%, transparent 100%)`,
+          background: `radial-gradient(380px circle at ${absMousePos.x}px ${absMousePos.y}px, rgba(224,98,47,0.07), rgba(239,178,56,0.03) 45%, transparent 100%)`,
         }}
       />
 
-      {/* 2. Volumetric Textured Atmosphere & Ethiopian Mesh Pattern */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Deep Warm Radiance Clouds */}
-        <div className="absolute top-[10%] left-[55%] -translate-x-1/2 w-[700px] h-[700px] bg-gradient-radial from-[#392211]/35 to-transparent blur-[120px]" />
-        <div className="absolute bottom-[5%] right-[5%] w-[500px] h-[500px] bg-gradient-radial from-[#E0622F]/10 to-transparent blur-[100px]" />
-        <div className="absolute top-[40%] left-[10%] w-[450px] h-[450px] bg-gradient-radial from-[#EFB238]/6 to-transparent blur-[110px]" />
+      {/* ── Ethiopian geometric mesh ── */}
+      <div
+        className="absolute inset-0 z-5 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23EFB238' stroke-width='1'/%3E%3C/svg%3E")`,
+          backgroundSize: "60px 60px",
+        }}
+      />
 
-        {/* Traditional fine-mesh cultural geometric grid overlay */}
-        <div 
-          className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23EFB238' stroke-width='1'/%3E%3Cpath d='M30 15 L45 30 L30 45 L15 30 Z' fill='none' stroke='%23E0622F' stroke-width='0.5'/%3E%3C/svg%3E")`,
-            backgroundSize: "60px 60px"
-          }}
-        />
-      </div>
-
-      {/* 3. Gold Dust Sparks Environment */}
+      {/* ── Gold dust sparks ── */}
       <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
         {goldSparks.map((p) => (
           <motion.div
             key={p.id}
             initial={{ opacity: 0, y: "105%", x: `${p.x}%` }}
             animate={{
-              opacity: [0, 0.7, 0.7, 0],
+              opacity: [0, 0.6, 0.6, 0],
               y: ["100%", "0%"],
               x: [`${p.x}%`, `${p.x + p.drift}%`],
             }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "linear" }}
             className="absolute"
             style={{
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              backgroundColor: p.id % 2 === 0 ? "#EFB238" : "#E0622F", // Gold & Brand Orange
+              width: `${p.size}px`, height: `${p.size}px`,
+              backgroundColor: p.id % 2 === 0 ? "#EFB238" : "#E0622F",
               borderRadius: "50%",
-              boxShadow: "0 0 8px rgba(239, 178, 56, 0.8)",
-              left: 0,
-              top: 0,
+              boxShadow: "0 0 8px rgba(239,178,56,0.8)",
+              left: 0, top: 0,
             }}
           />
         ))}
       </div>
 
-      {/* 4. Elegant Interactive 3D Floating Assets (Coffee beans, cardamom stardust) */}
-      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-        {floatingObjects.map((obj) => (
-          <motion.div
-            key={obj.id}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: [0, 0.6, 0.6, 0],
-              scale: [0.95, 1.05, 0.95],
-              y: ["10%", "-10%"],
-              rotate: [obj.rotation, obj.rotation + 360],
-            }}
-            transition={{
-              y: {
-                repeat: Infinity,
-                repeatType: "reverse",
-                duration: obj.speed,
-                ease: "easeInOut",
-              },
-              rotate: {
-                repeat: Infinity,
-                duration: obj.speed * 2.5,
-                ease: "linear",
-              },
-              opacity: {
-                duration: 1.5,
-                delay: obj.delay
-              }
-            }}
-            className="absolute hidden sm:block"
-            style={{
-              left: `${obj.x}%`,
-              top: `${obj.y}%`,
-              width: `${obj.size}px`,
-              height: `${obj.size}px`,
-              transformStyle: "preserve-3d",
-              // Respond slightly to global mouse tilt
-              transform: `translate3d(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px, 0px)`,
-            }}
-          >
-            {/* Roasted Coffee Bean Vector SVG */}
-            {obj.type === "coffee" && (
-              <svg viewBox="0 0 100 100" className="w-full h-full fill-[#392211] stroke-[#EFB238]/15 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]">
-                {/* Outer Bean Shell */}
-                <ellipse cx="50" cy="50" rx="32" ry="46" transform="rotate(-15 50 50)" />
-                {/* Sylvan Center Cleavage */}
-                <path d="M 40,4 C 44,20 34,42 50,50 C 66,58 56,80 60,96" stroke="#F2CF88" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.85" />
-                {/* Secondary Roast Crevice */}
-                <path d="M 48,15 Q 40,45 52,85" stroke="#050505" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.6" />
-              </svg>
-            )}
-
-            {/* Traditional Cross Pattern Gear */}
-            {obj.type === "cross_pattern" && (
-              <svg viewBox="0 0 100 100" className="w-full h-full text-[#EFB238]/15 fill-none stroke-current stroke-[2] opacity-75">
-                <circle cx="50" cy="50" r="40" />
-                <path d="M 50,10 L 50,90 M 10,50 L 90,50" />
-                <polygon points="50,15 55,30 70,30 58,40 62,55 50,45 38,55 42,40 30,30 45,30" className="fill-[#EFB238]/5" />
-              </svg>
-            )}
-
-            {/* Organic star anise spice */}
-            {obj.type === "staranise" && (
-              <svg viewBox="0 0 120 120" className="w-full h-full fill-[#E0622F]/20 stroke-[#EFB238]/10">
-                <g transform="translate(60,60)">
-                  {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
-                    <path
-                      key={angle}
-                      d="M 0,0 C 8,-12 12,-35 0,-45 C -12,-35 -8,-12 0,0"
-                      transform={`rotate(${angle})`}
-                      className="fill-[#392211] stroke-[#F2CF88]/30"
-                    />
-                  ))}
-                  <circle cx="0" cy="0" r="8" className="fill-[#EFB238]/70" />
-                </g>
-              </svg>
-            )}
-
-            {/* Spiced Cardamom Shell */}
-            {obj.type === "cardamom" && (
-              <svg viewBox="0 0 80 80" className="w-full h-full fill-[#392211] stroke-[#EFB238]/30">
-                <path d="M 40,8 C 58,22 58,58 40,72 C 22,58 22,22 40,8 Z" />
-                <path d="M 40,8 Q 30,40 40,72 M 40,8 Q 50,40 40,72" fill="none" stroke="#F2CF88/40" />
-              </svg>
-            )}
-          </motion.div>
+      {/* ── Photo dot indicator (bottom left) ── */}
+      <div className="absolute bottom-8 left-6 z-30 flex gap-1.5">
+        {BG_IMAGES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setBgIndex(i)}
+            className={`transition-all duration-300 rounded-full cursor-pointer ${
+              i === bgIndex ? "w-5 h-1.5 bg-brand-orange" : "w-1.5 h-1.5 bg-white/30 hover:bg-white/60"
+            }`}
+          />
         ))}
       </div>
 
-      {/* 5. Volumetric Cinematic Expansion Steam/Smoke Cloud (Scales/fades dynamically on scroll) */}
+      {/* ── MAIN GRID ── */}
       <motion.div
-        style={{
-          scale: steamScale,
-          opacity: steamOpacity,
-        }}
-        className="absolute inset-0 pointer-events-none z-30 flex items-center justify-center mix-blend-screen"
-      >
-        <div className="w-[120%] h-[120%] bg-gradient-radial from-[#392211]/30 via-transparent to-transparent blur-[80px]" />
-      </motion.div>
-
-      {/* 6. Main Dual Column Grid Container (Fades carefully on scroll to begin Storyteller section) */}
-      <motion.div 
         style={{ opacity: contentFade }}
-        className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center py-4"
+        className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center py-4"
       >
-        
-        {/* Left Copy Panel with Luxury Typography & Animated Reveal */}
-        <div className="lg:col-span-5 space-y-7 text-center lg:text-left relative z-25 order-2 lg:order-1 mt-6 lg:mt-0">
 
-          <div className="space-y-4">
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="block text-[#E0622F] text-xs font-bold uppercase tracking-[0.45em] font-sans"
-            >
-              FERU BAR & RESTAURANT
-            </motion.span>
+        {/* ── LEFT: Copy + CTAs ── */}
+        <div className="lg:col-span-5 space-y-6 text-center lg:text-left order-2 lg:order-1">
 
-            {/* Split Text Animated Entrance */}
-            <motion.h1
-              initial={{ opacity: 0, y: 35 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.85, ease: "easeOut" }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-serif text-white tracking-wide font-extrabold leading-[1.08] drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
-            >
-              Experience <span className="block text-gradient bg-gradient-to-r from-[#EFB238] via-[#F2CF88] to-[#E0622F] bg-clip-text text-transparent">Ethiopia</span> Through Every Bite
-            </motion.h1>
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 bg-brand-orange/15 border border-brand-orange/30 backdrop-blur-sm px-4 py-1.5 rounded-full"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">
+              Alexandria, Virginia
+            </span>
+          </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="text-amber-100/80 text-sm sm:text-base lg:text-lg font-light max-w-md mx-auto lg:mx-0 leading-relaxed font-sans"
-            >
-              Authentic cuisine, handcrafted cocktails, traditional coffee ceremonies, and unforgettable hospitality.
-            </motion.p>
-          </div>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 35 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.85, ease: "easeOut" }}
+            className="text-4xl sm:text-6xl lg:text-[4.5rem] font-serif text-white tracking-wide font-extrabold leading-[1.05]"
+          >
+            Experience
+            <span className="block text-brand-orange drop-shadow-[0_0_30px_rgba(224,98,47,0.55)]">
+              Ethiopia
+            </span>
+            Through Every Bite
+          </motion.h1>
 
-          {/* Symmetrical Luxury Interactive CTA Buttons (Magnetic effect) */}
+          {/* Sub */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            className="text-white/65 text-sm sm:text-base lg:text-[16px] font-light max-w-md mx-auto lg:mx-0 leading-relaxed"
+          >
+            Authentic cuisine, a full bar, traditional coffee ceremonies, and unforgettable hospitality — all under one roof.
+          </motion.p>
+
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
+            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1"
           >
-            {/* Primary Button: Reserve Table */}
             <motion.button
-              onMouseMove={(e) => handleButtonMouseMove(e, "reserve")}
-              onMouseLeave={() => handleButtonMouseLeave("reserve")}
+              onMouseMove={(e) => handleBtnMove(e, "reserve")}
+              onMouseLeave={() => handleBtnLeave("reserve")}
               animate={{ x: activeBtnOffset.x, y: activeBtnOffset.y }}
               onHoverStart={() => setHoveredButton("reserve")}
               onHoverEnd={() => setHoveredButton(null)}
@@ -359,135 +249,233 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
               style={{
-                boxShadow: hoveredButton === "reserve" 
-                  ? "0px 0px 25px rgba(224, 98, 47, 0.4)" 
-                  : "0px 4px 15px rgba(0,0,0,0.4)"
+                boxShadow: hoveredButton === "reserve"
+                  ? "0 0 30px rgba(224,98,47,0.55)"
+                  : "0 4px 20px rgba(224,98,47,0.3)",
               }}
-              className="w-full sm:w-auto px-9 py-4 bg-[#E0622F] hover:bg-[#c94f21] text-white text-[11.5px] font-bold uppercase tracking-[0.25em] rounded transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 border border-[#E0622F]/40 hover:-translate-y-0.5 active:scale-95"
+              className="w-full sm:w-auto px-8 py-4 bg-brand-orange hover:bg-vibrant-red text-white text-[11.5px] font-bold uppercase tracking-[0.25em] rounded transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95"
             >
-              <Calendar className="w-4 h-4 text-[#F2CF88]" />
+              <Calendar className="w-4 h-4" />
               Reserve a Table
             </motion.button>
-            
-            {/* Secondary Button: Explore Menu */}
+
             <motion.button
-              onMouseMove={(e) => handleButtonMouseMove(e, "menu")}
-              onMouseLeave={() => handleButtonMouseLeave("menu")}
+              onMouseMove={(e) => handleBtnMove(e, "menu")}
+              onMouseLeave={() => handleBtnLeave("menu")}
               animate={{ x: menuBtnOffset.x, y: menuBtnOffset.y }}
               onHoverStart={() => setHoveredButton("menu")}
               onHoverEnd={() => setHoveredButton(null)}
-              onClick={() => {
-                setActiveTab("menu");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              style={{
-                boxShadow: hoveredButton === "menu" 
-                  ? "0px 0px 20px rgba(239, 178, 56, 0.2)" 
-                  : "0px 4px 10px rgba(0,0,0,0.5)"
-              }}
-              className="w-full sm:w-auto px-9 py-4 bg-[#050505] text-[#F2CF88] hover:text-white border border-[#EFB238]/30 hover:border-[#EFB238] text-[11.5px] font-bold uppercase tracking-[0.25em] rounded transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95"
+              onClick={() => { setActiveTab("menu"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/25 hover:border-white/55 text-[11.5px] font-bold uppercase tracking-[0.25em] rounded transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95"
             >
-              <BookOpen className="w-4 h-4 text-[#EFB238]" />
+              <BookOpen className="w-4 h-4 text-brand-orange" />
               Explore Menu
             </motion.button>
           </motion.div>
-        </div>
 
-        {/* Right Column: Frameless Cinematically Integrated Logo Video */}
-        <div className="lg:col-span-7 flex flex-col items-center justify-center relative min-h-[400px] sm:min-h-[480px] order-1 lg:order-2">
-          
-          {/* Continuous floating perspective with mouse tracking */}
+          {/* Trust bar */}
           <motion.div
-            style={{
-              transformStyle: "preserve-3d",
-              transform: `perspective(1000px) rotateY(${mousePos.x}deg) rotateX(${mousePos.y}deg)`,
-              scale: videoScale,
-              y: videoTranslateY,
-            }}
-            animate={{
-              y: [0, -12, 0],
-            }}
-            transition={{
-              y: {
-                repeat: Infinity,
-                duration: 6,
-                ease: "easeInOut"
-              }
-            }}
-            className="relative w-80 h-80 sm:w-[500px] sm:h-[500px] flex flex-col items-center justify-center group"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.15 }}
+            className="flex items-center justify-center lg:justify-start gap-8 pt-2 border-t border-white/10 mt-2"
           >
-            
-            {/* Ambient luxury halo backing the video */}
-            <div className="absolute inset-0 rounded-full bg-gradient-radial from-[#EFB238]/12 via-[#E0622F]/4 to-transparent blur-[60px] pointer-events-none z-0" />
-
-            {/* Frameless Video Container with beautiful soft-edge mask blending into the deep dark space */}
-            <div 
-              className="relative w-full h-full overflow-hidden z-10 flex items-center justify-center"
-              style={{
-                maskImage: "radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0.85) 75%, rgba(0,0,0,0) 100%)",
-                WebkitMaskImage: "radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0.85) 75%, rgba(0,0,0,0) 100%)"
-              }}
-            >
-              
-              {!videoError ? (
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  onError={() => setVideoError(true)}
-                  className="w-full h-full object-cover transition-opacity duration-1000 brightness-115 contrast-102"
-                >
-                  <source src={logoIntroVideo} type="video/mp4" />
-                  Your system doesn't support local video streaming.
-                </video>
-              ) : (
-                <img
-                  src={feruLogoCustom}
-                  alt="Feru Custom Logo"
-                  className="w-80 h-80 object-contain filter drop-shadow-[0_4px_25px_rgba(239,178,56,0.25)]"
-                />
-              )}
-
-              {/* Volumetric ambient steam emitter inside video borders */}
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-48 h-12 bg-gradient-to-t from-white/10 to-transparent blur-md pointer-events-none mix-blend-screen opacity-55" />
-            </div>
-
+            {[
+              { value: "4.9★", label: "Google" },
+              { value: "482+", label: "Reviews" },
+              { value: "Full Bar", label: "& Lounge" },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <span className="block text-sm font-serif font-black text-brand-orange">{s.value}</span>
+                <span className="block text-[9px] uppercase tracking-widest text-white/40 font-bold mt-0.5">{s.label}</span>
+              </div>
+            ))}
           </motion.div>
         </div>
 
+        {/* ── RIGHT: Expandable Interactive Accordion ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
+          className="lg:col-span-7 order-1 lg:order-2 w-full h-[450px] sm:h-[520px] flex gap-2 sm:gap-3 items-stretch mt-8 lg:mt-0 overflow-hidden"
+          onMouseLeave={() => setHoveredMosaic(null)}
+        >
+          {/* Panel 0: The Intro Video */}
+          <motion.div 
+            layout
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
+              (hoveredMosaic === null || hoveredMosaic === 0) ? "flex-[5]" : "flex-[1]"
+            }`}
+            onMouseEnter={() => setHoveredMosaic(0)}
+          >
+            <div className="absolute inset-0 z-0">
+               {!videoError ? (
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    onError={() => setVideoError(true)}
+                    className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700"
+                  >
+                    <source src={logoIntroVideo} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img src={imgBar} alt="The Bar fallback" className="w-full h-full object-cover" />
+                )}
+            </div>
+            {/* Gradient Overlay */}
+            <div className={`absolute inset-0 transition-opacity duration-300 ${
+              (hoveredMosaic === null || hoveredMosaic === 0) 
+              ? "bg-gradient-to-t from-black/80 via-black/10 to-transparent" 
+              : "bg-black/50"
+            }`} />
+
+            {/* Video Controls / Badges */}
+            <AnimatePresence>
+              {(hoveredMosaic === null || hoveredMosaic === 0) ? (
+                <motion.div 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+                  className="absolute inset-0 z-20 pointer-events-none"
+                >
+                  <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/80 to-transparent pointer-events-auto">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+                      <span className="text-[9px] uppercase tracking-[0.25em] text-white/90 font-black">Atmosphere</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button onClick={handleTogglePlay} className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center transition-all border border-white/20">
+                        {isPlaying ? <Pause className="w-3 h-3 text-white" /> : <Play className="w-3 h-3 text-white ml-0.5" />}
+                      </button>
+                      <button onClick={handleToggleMute} className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center transition-all border border-white/20">
+                        {isMuted ? <VolumeX className="w-3 h-3 text-white" /> : <Volume2 className="w-3 h-3 text-white" />}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-5 left-5 right-5">
+                    <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Cinematic Vibe</h3>
+                    <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">The energy, the music, the unmistakable feeling of a night in Addis Ababa.</p>
+                  </div>
+                </motion.div>
+              ) : (
+                 <motion.div 
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0"
+                 >
+                    <span className="text-white text-[9px] sm:text-xs font-black uppercase tracking-widest whitespace-nowrap rotate-90 sm:-rotate-90">Vibe Intro</span>
+                 </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Panel 1: Al Fresco Outside */}
+          <motion.div 
+            layout
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
+              hoveredMosaic === 1 ? "flex-[5]" : "flex-[1]"
+            }`}
+            onMouseEnter={() => setHoveredMosaic(1)}
+          >
+            <img src={imgOutside} alt="Outside" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div className={`absolute inset-0 transition-opacity duration-300 ${hoveredMosaic === 1 ? "bg-gradient-to-t from-black/80 via-transparent to-black/20" : "bg-black/60"}`} />
+            
+            <AnimatePresence>
+              {hoveredMosaic === 1 ? (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-20 p-5 flex flex-col justify-end">
+                   <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Al Fresco</h3>
+                   <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Elegant outdoor seating for breezy evenings and sunny weekend brunches.</p>
+                </motion.div>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0">
+                   <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Patio</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Panel 2: Inside Dining */}
+          <motion.div 
+            layout
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
+              hoveredMosaic === 2 ? "flex-[5]" : "flex-[1]"
+            }`}
+            onMouseEnter={() => setHoveredMosaic(2)}
+          >
+            <img src={imgInside1} alt="Inside Dining" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div className={`absolute inset-0 transition-opacity duration-300 ${hoveredMosaic === 2 ? "bg-gradient-to-t from-black/80 via-transparent to-black/20" : "bg-black/60"}`} />
+            
+            <AnimatePresence>
+              {hoveredMosaic === 2 ? (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-20 p-5 flex flex-col justify-end">
+                   <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Intimate Interior</h3>
+                   <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Warm lighting and rich wooden accents set the stage for romance and celebration.</p>
+                </motion.div>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0">
+                   <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Dining Room</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Panel 3: Private Tables */}
+          <motion.div 
+            layout
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className={`relative overflow-hidden rounded-2xl cursor-pointer group bg-black border border-white/10 ${
+              hoveredMosaic === 3 ? "flex-[5]" : "flex-[1]"
+            }`}
+            onMouseEnter={() => setHoveredMosaic(3)}
+          >
+            <img src={imgTables} alt="Private Tables" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div className={`absolute inset-0 transition-opacity duration-300 ${hoveredMosaic === 3 ? "bg-gradient-to-t from-black/80 via-transparent to-black/20" : "bg-black/60"}`} />
+            
+            <AnimatePresence>
+              {hoveredMosaic === 3 ? (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 z-20 p-5 flex flex-col justify-between">
+                   <div className="flex justify-end">
+                      <button onClick={() => { setActiveTab("about"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="flex items-center gap-1 bg-brand-orange/90 hover:bg-brand-orange text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full transition-all cursor-pointer border border-white/10 shadow-lg">Our Story <ChevronRight className="w-3 h-3" /></button>
+                   </div>
+                   <div>
+                     <h3 className="text-white text-xl sm:text-3xl font-serif font-black drop-shadow-lg">Communal Dining</h3>
+                     <p className="text-white/80 text-xs sm:text-sm font-light mt-1 w-3/4">Gather around large traditional platters representing unity, family, and sharing.</p>
+                   </div>
+                </motion.div>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex items-center justify-center pointer-events-none origin-bottom -rotate-90 sm:rotate-0">
+                   <span className="text-white text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] whitespace-nowrap sm:-rotate-90 rotate-90">Events &amp; Tables</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
+
       </motion.div>
 
-      {/* 7. Micro-interactions: Interactive Scroll Indicator at bottom */}
-      <motion.div 
+      {/* ── Scroll indicator ── */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
         onClick={() => {
           const el = document.getElementById("reservation-anchor");
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }}
       >
-        <span className="text-[10px] tracking-[0.3em] text-[#F2CF88]/70 uppercase font-black font-sans">
-          Scroll to explore
-        </span>
-        <div className="w-6 h-10 border border-[#EFB238]/30 rounded-full flex justify-center items-start p-1.5 bg-[#050505]/60 backdrop-blur-sm">
-          {/* Animated Coffee Bean Indicator */}
+        <span className="text-[10px] tracking-[0.3em] text-white/40 uppercase font-semibold">Scroll</span>
+        <div className="w-6 h-10 border border-white/15 rounded-full flex justify-center items-start p-1.5 bg-white/5 backdrop-blur-sm">
           <motion.div
-            animate={{
-              y: [0, 16, 0]
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 2.2,
-              ease: "easeInOut"
-            }}
-            className="w-2.5 h-3.5 bg-[#EFB238] rounded-full relative"
+            animate={{ y: [0, 16, 0] }}
+            transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
+            className="w-2.5 h-3.5 bg-brand-orange rounded-full relative"
           >
-            {/* Coffee split line */}
-            <div className="absolute inset-y-0 left-1/2 w-[0.5px] bg-[#392211] -translate-x-1/2 transform rotate-12" />
+            <div className="absolute inset-y-0 left-1/2 w-[0.5px] bg-[#392211] -translate-x-1/2 rotate-12" />
           </motion.div>
         </div>
       </motion.div>

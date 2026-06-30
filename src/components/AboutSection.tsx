@@ -8,17 +8,17 @@ export default function AboutSection() {
     {
       icon: <Compass className="w-6 h-6 text-brand-orange" />,
       title: "Direct Sourcing (Gondar)",
-      description: "Our core berbere spice mixture, warm clarified butter (kibe), and organic coffee beans are selected and shipped directly from family plots in Gondar and Kaffa, Ethiopia. No substitutes."
+      description: "We source our core berbere spice, clarified butter (kibe), and organic coffee beans directly from family farms in Gondar and Kaffa."
     },
     {
       icon: <Award className="w-6 h-6 text-brand-orange" />,
       title: "The 3-Day Sourdough",
-      description: "Truly organic Injera is fermented over 72 continuous hours, unlocking its natural tangy notes, gluten-free properties, and airy, bubbly visual pocket ('eyes') typical of pure teff grain."
+      description: "Our pure teff Injera is slowly fermented for 72 hours, creating its signature tang, airy texture, and gluten-free quality."
     },
     {
       icon: <Heart className="w-6 h-6 text-brand-orange" />,
       title: "The Ethos of Gursha",
-      description: "We cultivate connection. To share injera from one central circular plate, and offer friends a handcrafted bite (Gursha) with your own hand, is our oldest and highest expression of respect."
+      description: "Sharing injera from a communal plate and feeding a guest a hand-rolled wrap (Gursha) is our deepest tradition of respect."
     }
   ];
 
@@ -98,17 +98,17 @@ export default function AboutSection() {
           <div className="lg:col-span-5 order-2 lg:order-1 relative group">
             <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-600 to-brand-orange rounded-xl blur-md opacity-35 group-hover:opacity-55 transition duration-700" />
             
-            <div className="relative rounded-xl overflow-hidden border-2 border-brand-orange bg-stone-900 aspect-[1/1] shadow-2xl flex flex-col justify-between p-6">
+            <div className="relative rounded-xl overflow-hidden border-2 border-brand-orange bg-white aspect-[1/1] shadow-2xl flex flex-col justify-between p-6">
               
               {/* Actual host portrait */}
               <img
                 src={IMAGES.owners}
                 alt="Melaku and Nibret"
-                className="absolute inset-0 w-full h-full object-cover opacity-80 filter brightness-90 contrast-105 group-hover:scale-105 transition-transform duration-700"
+                className="absolute inset-0 w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />
               
-              <div className="absolute inset-0 bg-gradient-to-b from-[#120D08]/10 via-[#120D08]/50 to-[#120D08]/90 z-0" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#120D08]/5 via-[#120D08]/30 to-[#120D08]/75 z-0" />
 
               <div className="relative z-10 flex justify-between items-start">
                 <span className="bg-brand-orange/90 text-white text-[8px] uppercase tracking-[0.25em] py-1 px-3.5 rounded font-black border border-white/10">

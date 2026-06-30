@@ -14,24 +14,10 @@ import { GlobalThreeDBackground } from "./components/ThreeDHelper";
 
 export default function App() {
   const [activeTab, setActiveTab] = React.useState<string>("home");
-  const [theme, setTheme] = React.useState<"dark" | "light">(() => {
-    const saved = localStorage.getItem("feru-theme");
-    return (saved as "dark" | "light") || "light";
-  });
-
   React.useEffect(() => {
-    localStorage.setItem("feru-theme", theme);
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+    root.classList.remove("dark");
+  }, []);
 
   // Renders the correct visual section based on active state
   const renderActiveSection = () => {
@@ -64,7 +50,7 @@ export default function App() {
       <GlobalThreeDBackground />
 
       {/* Premium Navigation Header */}
-      <Header activeTab={activeTab} setActiveTab={setActiveTab} theme={theme} toggleTheme={toggleTheme} />
+      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
       
       {/* Immersive Page Container */}
       <main className="flex-grow pt-24 relative z-10">
