@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "motion/react";
 import { Calendar, BookOpen, Sparkles, ChevronRight, Volume2, VolumeX, Play, Pause } from "lucide-react";
 // @ts-ignore
 import logoIntroVideo from "../assets/images/logointro.mp4";
@@ -32,7 +32,6 @@ const BG_IMAGES = [imgInside, imgBar, imgBar1, imgInside1];
 export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) {
   const [bgIndex, setBgIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [absMousePos, setAbsMousePos] = useState({ x: 0, y: 0 });
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const [activeBtnOffset, setActiveBtnOffset] = useState({ x: 0, y: 0 });
   const [menuBtnOffset, setMenuBtnOffset] = useState({ x: 0, y: 0 });
@@ -45,8 +44,33 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { scrollY } = useScroll();
-  const contentFade = useTransform(scrollY, [0, 380], [1, 0]);
-  const bgParallax = useTransform(scrollY, [0, 600], ["0%", "18%"]);
+
+  // Spring-smoothed scroll-linked transforms for a buttery, cinematic exit
+  const contentFadeRaw = useTransform(scrollY, [0, 380], [1, 0]);
+  const contentFade = useSpring(contentFadeRaw, { stiffness: 140, damping: 28, restDelta: 0.001 });
+
+  const contentYRaw = useTransform(scrollY, [0, 380], [0, 60]);
+  const contentY = useSpring(contentYRaw, { stiffness: 140, damping: 28 });
+
+  const bgParallaxRaw = useTransform(scrollY, [0, 700], ["0%", "22%"]);
+  const bgParallax = useSpring(bgParallaxRaw, { stiffness: 90, damping: 30 });
+
+  const bgScaleRaw = useTransform(scrollY, [0, 700], [1, 1.12]);
+  const bgScale = useSpring(bgScaleRaw, { stiffness: 90, damping: 30 });
+
+  const heroBlurRaw = useTransform(scrollY, [0, 450], [0, 6]);
+  const heroBlur = useTransform(heroBlurRaw, (v) => `blur(${v}px)`);
+
+  const scrollHintOpacity = useTransform(scrollY, [0, 160], [1, 0]);
+
+  // Smooth, spring-driven cursor spotlight (avoids re-render jank from raw state)
+  const spotX = useMotionValue(0);
+  const spotY = useMotionValue(0);
+  const spotlightX = useSpring(spotX, { stiffness: 200, damping: 30, mass: 0.4 });
+  const spotlightY = useSpring(spotY, { stiffness: 200, damping: 30, mass: 0.4 });
+  const spotlightBg = useTransform([spotlightX, spotlightY], ([x, y]: number[]) =>
+    `radial-gradient(420px circle at ${x}px ${y}px, rgba(224,98,47,0.09), rgba(239,178,56,0.04) 45%, transparent 100%)`
+  );
 
   // Auto-cycle background every 5s
   useEffect(() => {
@@ -60,7 +84,8 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     setMousePos({ x: x * 10, y: y * -10 });
-    setAbsMousePos({ x: e.clientX, y: e.clientY });
+    spotX.set(e.clientX);
+    spotY.set(e.clientY);
   };
   const handleMouseLeave = () => {
     setMousePos({ x: 0, y: 0 });
@@ -104,15 +129,16 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
     })), []);
 
   return (
-    <section
+    <motion.section
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      style={{ filter: heroBlur }}
       className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-10 select-none"
       id="hero-stage"
     >
       {/* ── BG: auto-cycling full-bleed photo ── */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgParallax }}>
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgParallax, scale: bgScale }}>
         <AnimatePresence mode="sync">
           <motion.img
             key={bgIndex}
@@ -132,11 +158,9 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
       </motion.div>
 
       {/* ── Cursor spotlight ── */}
-      <div
+      <motion.div
         className="absolute inset-0 z-10 pointer-events-none hidden sm:block"
-        style={{
-          background: `radial-gradient(380px circle at ${absMousePos.x}px ${absMousePos.y}px, rgba(224,98,47,0.07), rgba(239,178,56,0.03) 45%, transparent 100%)`,
-        }}
+        style={{ background: spotlightBg }}
       />
 
       {/* ── Ethiopian geometric mesh ── */}
@@ -186,7 +210,7 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
 
       {/* ── MAIN GRID ── */}
       <motion.div
-        style={{ opacity: contentFade }}
+        style={{ opacity: contentFade, y: contentY }}
         className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center py-4"
       >
 
@@ -208,15 +232,20 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.85, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 35, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 0.35, duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl sm:text-6xl lg:text-[4.5rem] font-serif text-white tracking-wide font-extrabold leading-[1.05]"
           >
             Experience
-            <span className="block text-brand-orange drop-shadow-[0_0_30px_rgba(224,98,47,0.55)]">
+            <motion.span
+              initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.55, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="block text-brand-orange drop-shadow-[0_0_30px_rgba(224,98,47,0.55)]"
+            >
               Ethiopia
-            </span>
+            </motion.span>
             Through Every Bite
           </motion.h1>
 
@@ -456,6 +485,7 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
+        style={{ opacity: scrollHintOpacity }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
         onClick={() => {
           const el = document.getElementById("reservation-anchor");
@@ -474,6 +504,6 @@ export default function InteractiveHero({ setActiveTab }: InteractiveHeroProps) 
         </div>
       </motion.div>
 
-    </section>
+    </motion.section>
   );
 }
