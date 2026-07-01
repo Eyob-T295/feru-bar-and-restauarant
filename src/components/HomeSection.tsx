@@ -96,13 +96,20 @@ export default function HomeSection(props: HomeSectionProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {REVIEWS.map((review) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ perspective: 1200 }}>
+              {REVIEWS.map((review, rIdx) => (
                 <ThreeDInteractiveCard key={review.id} className="h-full">
                   <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    initial={{ opacity: 0, y: 45, rotateY: 30, scale: 0.94 }}
+                    whileInView={{ opacity: 1, y: 0, rotateY: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 85,
+                      damping: 16,
+                      delay: rIdx * 0.12
+                    }}
+                    style={{ transformStyle: "preserve-3d", willChange: "transform, opacity" }}
                     className="bg-white p-6 rounded-lg border border-gold-200 hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-between space-y-4 shadow-gold-glow relative h-full"
                   >
                     <div className="space-y-3">
@@ -152,13 +159,23 @@ export default function HomeSection(props: HomeSectionProps) {
             <div className="w-12 h-[1.5px] bg-[#C14F26] mx-auto" />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {INSTAGRAM_POSTS.map((post) => {
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4" style={{ perspective: 1000 }}>
+            {INSTAGRAM_POSTS.map((post, pIdx) => {
               const isLiked = likedPosts[post.id];
               return (
                 <ThreeDInteractiveCard key={post.id} className="h-full">
                   <motion.div
-                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, y: 50, scale: 0.9, rotateX: 20 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 110,
+                      damping: 18,
+                      delay: pIdx * 0.12
+                    }}
+                    whileHover={{ scale: 1.03 }}
+                    style={{ transformStyle: "preserve-3d", willChange: "transform, opacity" }}
                     className="relative aspect-square rounded overflow-hidden bg-white group shadow-gold-glow border border-gold-200 h-full w-full"
                   >
                     <img
@@ -214,7 +231,13 @@ export default function HomeSection(props: HomeSectionProps) {
       {/* SECTION 9 – LUXURY RESERVATION CTA */}
       <ThreeDScrollWrapper>
         <section id="reservation-anchor" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-30">
-          <div className="relative rounded-xl overflow-hidden border-2 border-brand-orange/15 p-8 sm:p-16 text-center space-y-6 shadow-gold-glow bg-gradient-to-b from-white to-[#FAF7F2] flex flex-col items-center">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.93, filter: "brightness(0.9) contrast(0.95)" }}
+            whileInView={{ opacity: 1, scale: 1, filter: "brightness(1) contrast(1)" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+            className="relative rounded-xl overflow-hidden border-2 border-brand-orange/15 p-8 sm:p-16 text-center space-y-6 shadow-gold-glow bg-gradient-to-b from-white to-[#FAF7F2] flex flex-col items-center"
+          >
             
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(178,143,77,0.04)_0%,transparent_50%)] pointer-events-none" />
 
@@ -250,7 +273,7 @@ export default function HomeSection(props: HomeSectionProps) {
               You may also book directly over the phone at <a href="tel:+17035550291" className="text-brand-orange hover:underline font-bold">(703) 555-0291</a>. Walks-ins welcomed in lounge.
             </p>
 
-          </div>
+          </motion.div>
         </section>
       </ThreeDScrollWrapper>
 

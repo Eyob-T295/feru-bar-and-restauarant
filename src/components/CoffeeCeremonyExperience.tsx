@@ -73,7 +73,13 @@ export default function CoffeeCeremonyExperience() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* LEFT PANEL: Clean vertical interactive timeline accordions (lg:col-span-5) */}
-          <div className="lg:col-span-6 space-y-8 order-2 lg:order-1 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 35, filter: "blur(4px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 space-y-8 order-2 lg:order-1 relative"
+          >
             
             <div className="space-y-3">
               <div className="inline-flex items-center gap-1.5 bg-[#C14F26]/10 border border-[#C14F26]/20 px-3 py-1 rounded-full">
@@ -178,10 +184,22 @@ export default function CoffeeCeremonyExperience() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
           {/* RIGHT PANEL: Immersive 3D Clay Jebena Model floating gracefully (lg:col-span-6) */}
-          <div className="lg:col-span-6 flex justify-center items-center h-[480px] sm:h-[550px] relative order-1 lg:order-2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.76, rotate: -15 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ 
+              type: "spring",
+              stiffness: 70,
+              damping: 14,
+              duration: 1.0
+            }}
+            style={{ transformOrigin: "center center" }}
+            className="lg:col-span-6 flex justify-center items-center h-[480px] sm:h-[550px] relative order-1 lg:order-2"
+          >
             
             {/* Pulsing warm hearth fire glow underneath the pot */}
             <div className="absolute w-[320px] h-[320px] bg-[radial-gradient(circle_at_center,rgba(193,79,38,0.06)_0%,transparent_60%)] rounded-full blur-3xl pointer-events-none z-0" />
@@ -214,7 +232,7 @@ export default function CoffeeCeremonyExperience() {
 
             </motion.div>
 
-          </div>
+          </motion.div>
 
         </div>
 

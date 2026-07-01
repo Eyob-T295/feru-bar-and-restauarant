@@ -1,5 +1,6 @@
 import { ExternalLink, Award, Quote } from "lucide-react";
 import { motion } from "motion/react";
+import ThreeDInteractiveCard from "./ThreeDInteractiveCard";
 // @ts-ignore
 import wpLogo from "../assets/images/wp.png";
 // @ts-ignore
@@ -130,66 +131,78 @@ export default function PressFeatures() {
 
         {/* ── Press cards grid ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {features.map((f, i) => (
-            <motion.a
-              key={f.id}
-              href={f.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.09 }}
-              whileHover={{ y: -6 }}
-              className={`group bg-white rounded-xl border border-gold-200/80 ${f.hoverBorder} hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden cursor-pointer`}
-            >
-              {/* Logo image header */}
-              <div className="relative h-28 bg-[#F5F3EF] flex items-center justify-center px-6 border-b border-gold-100 overflow-hidden">
-                <img
-                  src={f.image}
-                  alt={f.outlet}
-                  className="max-h-16 max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-500"
-                />
-                {/* Date badge top right */}
-                <div className="absolute top-3 right-3">
-                  <span className="text-[8px] uppercase tracking-widest text-onyx-300 font-bold bg-white border border-gold-200 px-2 py-0.5 rounded">
-                    {f.date}
-                  </span>
-                </div>
-                {/* Feature badge top left */}
-                <div className="absolute top-3 left-3">
-                  <span className={`text-[8px] uppercase tracking-widest font-black px-2 py-0.5 rounded ${f.badgeColor}`}>
-                    {f.badge}
-                  </span>
-                </div>
-              </div>
+          {features.map((f, i) => {
+            const isLeft = i % 2 === 0;
+            return (
+              <ThreeDInteractiveCard key={f.id}>
+                <motion.a
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, x: isLeft ? -75 : 75, y: 35, rotate: isLeft ? -3 : 3 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 90,
+                    damping: 17,
+                    delay: i * 0.09
+                  }}
+                  style={{ transformStyle: "preserve-3d", willChange: "transform, opacity" }}
+                  className={`group bg-white rounded-xl border border-gold-200/80 ${f.hoverBorder} hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden cursor-pointer w-full h-full`}
+                >
+                  {/* Outer content container inside preserve-3d context */}
+                  <div className="flex flex-col h-full w-full">
+                    {/* Logo image header */}
+                    <div className="relative h-28 bg-[#F5F3EF] flex items-center justify-center px-6 border-b border-gold-100 overflow-hidden">
+                      <img
+                        src={f.image}
+                        alt={f.outlet}
+                        className="max-h-16 max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Date badge top right */}
+                      <div className="absolute top-3 right-3">
+                        <span className="text-[8px] uppercase tracking-widest text-[#523821] font-bold bg-white border border-gold-200 px-2 py-0.5 rounded">
+                          {f.date}
+                        </span>
+                      </div>
+                      {/* Feature badge top left */}
+                      <div className="absolute top-3 left-3">
+                        <span className={`text-[8px] uppercase tracking-widest font-black px-2 py-0.5 rounded ${f.badgeColor}`}>
+                          {f.badge}
+                        </span>
+                      </div>
+                    </div>
 
-              {/* Content body */}
-              <div className={`flex flex-col flex-1 p-5 space-y-3 border-l-4 ${f.accent}`}>
-                {/* Quote icon */}
-                <Quote className="w-4 h-4 text-brand-orange/40 shrink-0" />
+                    {/* Content body */}
+                    <div className={`flex flex-col flex-1 p-5 space-y-3 border-l-4 ${f.accent}`}>
+                      {/* Quote icon */}
+                      <Quote className="w-4 h-4 text-brand-orange/40 shrink-0" />
 
-                <h3 className="text-sm font-serif font-bold text-onyx-100 leading-snug group-hover:text-brand-orange transition-colors duration-200 line-clamp-3">
-                  {f.headline}
-                </h3>
+                      <h3 className="text-sm font-serif font-bold text-onyx-100 leading-snug group-hover:text-brand-orange transition-colors duration-200 line-clamp-3">
+                        {f.headline}
+                      </h3>
 
-                <p className="text-[11.5px] text-onyx-300 leading-relaxed font-light flex-1 line-clamp-3">
-                  {f.excerpt}
-                </p>
+                      <p className="text-[11.5px] text-onyx-300 leading-relaxed font-light flex-1 line-clamp-3">
+                        {f.excerpt}
+                      </p>
 
-                {/* Footer link */}
-                <div className="pt-3 border-t border-gold-100 flex items-center justify-between">
-                  <span className="text-[9px] uppercase tracking-widest text-onyx-400 font-bold truncate pr-2">
-                    {f.outlet}
-                  </span>
-                  <div className="flex items-center gap-1 text-brand-orange group-hover:text-vibrant-red transition-colors shrink-0">
-                    <span className="text-[9px] font-black uppercase tracking-wider">Read</span>
-                    <ExternalLink className="w-3 h-3" />
+                      {/* Footer link */}
+                      <div className="pt-3 border-t border-gold-100 flex items-center justify-between">
+                        <span className="text-[9px] uppercase tracking-widest text-onyx-400 font-bold truncate pr-2">
+                          {f.outlet}
+                        </span>
+                        <div className="flex items-center gap-1 text-brand-orange group-hover:text-vibrant-red transition-colors shrink-0">
+                          <span className="text-[9px] font-black uppercase tracking-wider">Read</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </motion.a>
-          ))}
+                </motion.a>
+              </ThreeDInteractiveCard>
+            );
+          })}
         </div>
 
         {/* ── Bottom quote strip ── */}

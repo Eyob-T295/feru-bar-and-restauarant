@@ -14,6 +14,8 @@ import meatLoversComboImg from "../assets/images/meatLoversCombo.jpg";
 // @ts-ignore
 import bulaKitfoImg from "../assets/images/bulaKitfo.jpg";
 
+import ThreeDInteractiveCard from "./ThreeDInteractiveCard";
+
 interface ChefsSpecialsProps {
   setActiveTab: (tab: string) => void;
 }
@@ -130,14 +132,20 @@ export default function ChefsSpecials(props: ChefsSpecialsProps) {
         {/* Clean, Simple luxury Grid Panel */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {specials.map((dish, i) => (
-            <motion.div
-              key={dish.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-white border border-gold-200 rounded-xl overflow-hidden group hover:border-[#C14F26]/40 transition-all duration-300 flex flex-col justify-between shadow-gold-glow"
-            >
+            <ThreeDInteractiveCard key={dish.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 55, rotateX: 25 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 90,
+                  damping: 16,
+                  delay: i * 0.08
+                }}
+                style={{ transformStyle: "preserve-3d", willChange: "transform, opacity" }}
+                className="bg-white border border-gold-200 rounded-xl overflow-hidden group hover:border-[#C14F26]/40 transition-all duration-300 flex flex-col justify-between shadow-gold-glow w-full h-full"
+              >
               <div>
                 
                 {/* Media frame with premium aspect ratio */}
@@ -212,7 +220,8 @@ export default function ChefsSpecials(props: ChefsSpecialsProps) {
                 </div>
               </div>
 
-            </motion.div>
+              </motion.div>
+            </ThreeDInteractiveCard>
           ))}
         </div>
 

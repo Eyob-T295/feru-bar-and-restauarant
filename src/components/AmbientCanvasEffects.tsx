@@ -75,31 +75,31 @@ export default function AmbientCanvasEffects(props: AmbientCanvasEffectsProps) {
       });
     }
 
-    // 2. Create 15 floating coffee beans (highly detailed)
-    for (let i = 0; i < 15; i++) {
+    // 2. Create 6 floating coffee beans (highly detailed)
+    for (let i = 0; i < 6; i++) {
       list.push({
         x: Math.random() * width,
         y: Math.random() * height,
         z: Math.random() * 3 + 0.5, // wide depth range
-        size: Math.random() * 12 + 6,
+        size: Math.random() * 11 + 5,
         speedX: (Math.random() - 0.5) * 0.3,
         speedY: (Math.random() - 0.5) * 0.2 - 0.15, // drifting
         speedZ: (Math.random() - 0.5) * 0.02,
         rotation: Math.random() * Math.PI * 2,
         rotSpeed: (Math.random() - 0.5) * 0.015,
-        opacity: Math.random() * 0.4 + 0.4,
+        opacity: Math.random() * 0.15 + 0.15, // more transparent/subtle
         color: "rgba(35, 23, 14, ", // Roasted coffee brown base
         type: "bean"
       });
     }
 
     // 3. Create Yirgacheffe orbiting coffee beans for the ceremony
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 4; i++) {
       list.push({
         x: width / 2,
         y: height / 2,
         z: Math.random() * 1 + 1,
-        size: Math.random() * 6 + 6,
+        size: Math.random() * 6 + 5,
         speedX: 0,
         speedY: 0,
         speedZ: 0,
@@ -108,8 +108,8 @@ export default function AmbientCanvasEffects(props: AmbientCanvasEffectsProps) {
         opacity: 0, // faded out initially, fades in when ceremony is active
         color: "rgba(184, 124, 43, ", // Golden roasted
         type: "bean",
-        angle: (i * (Math.PI * 2)) / 8, // equally spaced
-        orbitRadius: Math.random() * 100 + 150,
+        angle: (i * (Math.PI * 2)) / 4, // equally spaced
+        orbitRadius: Math.random() * 90 + 140,
         orbitSpeed: 0.008 + Math.random() * 0.005,
         pulseSpeed: 0.02,
         pulsePhase: Math.random() * Math.PI

@@ -49,13 +49,23 @@ export default function OwnersHomeSection() {
 
         {/* Main content: portrait + story */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
           {/* Owner portrait + Restaurant shot */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -70, rotateY: -45, scale: 0.85 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: -3, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 60, 
+              damping: 14, 
+              mass: 1.2,
+              duration: 1.1 
+            }}
+            style={{ 
+              transformStyle: "preserve-3d", 
+              perspective: 1200,
+              willChange: "transform, opacity" 
+            }}
             className="lg:col-span-5 relative group mt-8 lg:mt-0 pb-8 sm:pb-12 pr-6 sm:pr-8" 
           >
             
@@ -98,14 +108,14 @@ export default function OwnersHomeSection() {
           </motion.div>
 
           {/* Story column */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-7 space-y-7"
-          >
-            <div className="space-y-2">
+          <div className="lg:col-span-7 space-y-7">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-2"
+            >
               <span className="text-xs uppercase tracking-widest text-brand-orange font-bold font-sans">
                 THE VISIONARIES
               </span>
@@ -113,21 +123,38 @@ export default function OwnersHomeSection() {
                 A Family Dream Born in Addis Ababa
               </h3>
               <div className="w-12 h-[1.5px] bg-brand-orange" />
-            </div>
+            </motion.div>
 
-            <p className="text-sm sm:text-[15px] text-onyx-300 font-light leading-relaxed">
+            <motion.p 
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-sm sm:text-[15px] text-onyx-300 font-light leading-relaxed"
+            >
               Melaku and Nibret brought Feru to life with a single, powerful mission — to share the authentic flavors, warming traditions, and heartfelt hospitality of Ethiopia with the Alexandria community.
-            </p>
+            </motion.p>
 
             {/* Signature quote */}
-            <div className="bg-gradient-to-r from-amber-500/8 to-transparent border-l-4 border-brand-orange p-6 rounded-r-xl">
+            <motion.div 
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ 
+                type: "spring",
+                stiffness: 90,
+                damping: 17,
+                delay: 0.2
+              }}
+              className="bg-gradient-to-r from-amber-500/8 to-transparent border-l-4 border-brand-orange p-6 rounded-r-xl"
+            >
               <p className="font-serif italic text-lg sm:text-xl text-onyx-100 leading-relaxed font-medium">
                 "We cook like we're serving family — because we are."
               </p>
               <span className="block text-[10px] font-sans tracking-widest text-brand-orange uppercase font-black mt-2">
                 — MELAKU &amp; NIBRET, FOUNDERS
               </span>
-            </div>
+            </motion.div>
 
             {/* Quick stat row */}
             <div className="grid grid-cols-3 gap-4 pt-2">
@@ -135,16 +162,28 @@ export default function OwnersHomeSection() {
                 { value: "15+", label: "Years of Craft" },
                 { value: "4.9", label: "Google Rating", icon: <Star className="w-3 h-3 fill-amber-500 text-amber-500 inline -mt-0.5" /> },
                 { value: "100%", label: "Family Recipes" }
-              ].map((stat) => (
-                <div key={stat.label} className="text-center bg-white border border-gold-200 rounded-xl p-4 shadow-sm hover:border-brand-orange/40 transition-all duration-300">
+              ].map((stat, sIdx) => (
+                <motion.div 
+                  key={stat.label} 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 15,
+                    delay: 0.3 + sIdx * 0.1
+                  }}
+                  className="text-center bg-white border border-gold-200 rounded-xl p-4 shadow-sm hover:border-brand-orange/40 transition-all duration-300"
+                >
                   <span className="block text-xl font-serif font-black text-onyx-100">
                     {stat.value} {stat.icon}
                   </span>
                   <span className="block text-[9px] uppercase tracking-widest text-brand-orange font-bold mt-0.5">{stat.label}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>
